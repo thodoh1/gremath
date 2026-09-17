@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GRE Mathematics Book
 
-## Getting Started
+A complete course through **1036 atomic skills** for the GRE Mathematics Subject Test. This is a teaching book, not a formula sheet: each skill is a lesson with the idea from zero, a precise statement, a worked example, a GRE-style problem, traps, and drills with solutions.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
+python3 scripts/generate_book.py   # regenerates lessons if you edit the generators
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://127.0.0.1:43147](http://127.0.0.1:43147).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to use it
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Read **Front matter** (preface, exam, how to study, notation, ten-phase plan).
+2. Work **Parts A–Y** in order. Do not skip foundations.
+3. On each lesson: copy the definition, cover the worked example and finish it, time the GRE-style problem, then do both drills on paper.
+4. Mark mastery **0–3** in the reader (saved in the browser). **3** means you can solve an unfamiliar timed item that uses the skill.
 
-## Learn More
+## What is in the repo
 
-To learn more about Next.js, take a look at the following resources:
+- `content/catalog.json` — the 1036-skill checklist
+- `content/front/` — preface and study method
+- `content/parts/` — part introductions (A–Y)
+- `content/lessons/M-XXX.md` — one lesson per skill
+- `scripts/` — generators that rebuild the book
+- `src/` — the Next.js reader (KaTeX, search, progress)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Official GRE Mathematics resources live at ETS (practice book and content structure). This book teaches the skills those items use. A handful of checklist titles were truncated at page breaks in the source table; those lessons are reconstructed from the surrounding topic and labeled in the text.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Mastery scale
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Level | Meaning |
+| --- | --- |
+| 0 | Unseen |
+| 1 | Learned (can explain with the book closed) |
+| 2 | Can solve standard problems |
+| 3 | Can solve unfamiliar timed GRE-style problems |

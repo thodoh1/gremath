@@ -1,0 +1,707 @@
+"""Unique facts M-257 through M-360: integration, series, multivariable calculus."""
+
+from __future__ import annotations
+
+
+def facts() -> dict[int, dict]:
+    F: dict[int, dict] = {}
+
+    def a(n, stmt, exq, exa, gq, ga, trap, q1, a1, q2, a2):
+        F[n] = dict(stmt=stmt, exq=exq, exa=exa, gq=gq, ga=ga, trap=trap, q1=q1, a1=a1, q2=q2, a2=a2)
+
+    # F antiderivatives
+    a(257, r"An antiderivative of $f$ on an interval is a differentiable $F$ with $F'=f$. If $F$ is one antiderivative, the general antiderivative is $F+C$ on a connected interval. Indefinite integral $\int f\,dx=F+C$.",
+      r"Find all antiderivatives of $3x^2$.", r"$x^3+C$.",
+      r"If $F'=f$ and $G'=f$ on $\mathbb{R}$, then $G-F$ is", r"a constant.",
+      r"Dropping $+C$, or using one $C$ on a disconnected domain where $C$ may jump between components.",
+      r"Antiderivative of $0$.", r"Any constant.",
+      r"Is $F(x)=|x|$ an antiderivative of $\mathrm{sgn}(x)$ on $\mathbb{R}$?", r"Not at $0$ (not differentiable). On $(0,\infty)$ it is.")
+    a(258, r"Power rule for integration: $\int x^n\,dx=\dfrac{x^{n+1}}{n+1}+C$ for $n\neq -1$. For $n=-1$, $\int x^{-1}\,dx=\ln|x|+C$. Holds on intervals not containing a singularity when $n<0$.",
+      r"$\int x^{3}\,dx$ and $\int x^{-3}\,dx$.", r"$x^4/4+C$ and $-1/(2x^2)+C$.",
+      r"$\int \sqrt{x}\,dx$", r"$\dfrac{2}{3}x^{3/2}+C$ for $x>0$.",
+      r"Writing $\int x^{-1}\,dx=x^{0}/0$, or omitting $|\,|$ in $\ln|x|$.",
+      r"$\int x^{-1/2}\,dx$.", r"$2x^{1/2}+C$.",
+      r"Check by differentiating $\frac{x^{n+1}}{n+1}$.", r"Power rule: $x^n$.")
+    a(259, r"$\int e^{ax}\,dx=\frac{1}{a}e^{ax}+C$ ($a\neq 0$). $\int a^x\,dx=\frac{a^x}{\ln a}+C$ for $a>0,a\neq 1$. $\int \frac{1}{x}\,dx=\ln|x|+C$. $\int \frac{u'}{u}\,dx=\ln|u|+C$.",
+      r"$\int e^{2x}\,dx$ and $\int 2^x\,dx$.", r"$\frac12 e^{2x}+C$ and $2^x/\ln 2+C$.",
+      r"$\int \frac{2x}{x^2+1}\,dx$", r"$\ln(x^2+1)+C$.",
+      r"Treating $\int e^{x^2}\,dx$ as elementary (it is not).",
+      r"$\int e^{-x}\,dx$.", r"$-e^{-x}+C$.",
+      r"$\int \frac{1}{2x+3}\,dx$.", r"$\frac12\ln|2x+3|+C$.")
+    a(260, r"$\int\sin ax\,dx=-\frac{\cos ax}{a}+C$, $\int\cos ax\,dx=\frac{\sin ax}{a}+C$, $\int\sec^2 x\,dx=\tan x+C$, $\int\sec x\tan x\,dx=\sec x+C$, $\int\csc^2=-\cot$, $\int\csc\cot=-\csc$. $\int\tan x=\ln|\sec x|+C$.",
+      r"$\int\cos 3x\,dx$.", r"$\frac13\sin 3x+C$.",
+      r"$\int\sec^2(2x)\,dx$", r"$\frac12\tan(2x)+C$.",
+      r"Sign error on $\int\sin$: people write $+\cos$.",
+      r"$\int\sin(x/2)\,dx$.", r"$-2\cos(x/2)+C$.",
+      r"$\int\tan x\,dx$.", r"$\ln|\sec x|+C$ (or $-\ln|\cos x|$).")
+    a(261, r"$u$-substitution: if $u=g(x)$ is $C^1$, $\int f(g(x))g'(x)\,dx=\int f(u)\,du$. For definite integrals, change the limits: $\int_a^b f(g(x))g'(x)\,dx=\int_{g(a)}^{g(b)} f(u)\,du$.",
+      r"$\int 2x\cos(x^2)\,dx$.", r"$u=x^2$, $du=2x\,dx$, $\sin(x^2)+C$.",
+      r"$\int_0^1 x(x^2+1)^3\,dx$", r"$u=x^2+1$, $u:1\to 2$, $\frac12\int_1^2 u^3\,du=\frac{15}{8}$.",
+      r"Substituting $u$ but keeping $dx$ limits in $x$, or forgetting $du=g'\,dx$.",
+      r"$\int \frac{x}{\sqrt{1+x^2}}\,dx$.", r"$\sqrt{1+x^2}+C$.",
+      r"Why rewrite $\int_0^{\pi/2}\sin x\cos x\,dx$ with $u=\sin x$?", r"$u:0\to 1$, $\int_0^1 u\,du=1/2$.")
+    a(262, r"Integration by parts: $\int u\,dv=uv-\int v\,du$. LIATE/ILATE picks $u$. For definite integrals, evaluate $uv$ at the bounds. Repeating parts on $\int e^{ax}\sin bx$ yields a solvable equation for the original integral.",
+      r"$\int x e^x\,dx$.", r"$u=x$, $dv=e^x dx$: $xe^x-\int e^x=e^x(x-1)+C$.",
+      r"$\int_0^{\pi/2} x\cos x\,dx$", r"$[x\sin x]_0^{\pi/2}-\int_0^{\pi/2}\sin x=\frac{\pi}{2}-1$.",
+      r"Choosing $u$ to be the factor that gets more complicated after differentiating.",
+      r"$\int\ln x\,dx$.", r"$x\ln x-x+C$.",
+      r"$\int x\sin x\,dx$.", r"$-x\cos x+\int\cos x=-x\cos x+\sin x+C$.")
+    a(263, r"If $\deg p<\deg q$ and $q$ factors into distinct linears, $\frac{p}{q}=\sum\frac{A_i}{x-r_i}$. Repeated $(x-r)^k$ needs terms up to $A_k/(x-r)^k$. Irreducible quadratics get $(Bx+C)/(x^2+\cdots)$. Then integrate termwise: logs and arctans.",
+      r"$\int\dfrac{1}{x^2-1}\,dx$.", r"$\frac12\ln\left|\frac{x-1}{x+1}\right|+C$ after $\frac{1/2}{x-1}-\frac{1/2}{x+1}$.",
+      r"$\int\dfrac{1}{x^2+1}\,dx$", r"$\arctan x+C$ (already irreducible quadratic).",
+      r"Decomposing an improper fraction without dividing first.",
+      r"$\int\dfrac{1}{x(x-1)}\,dx$.", r"$\ln\left|\frac{x-1}{x}\right|+C$.",
+      r"$\int\dfrac{x}{x^2+2x+1}\,dx=\int\dfrac{x}{(x+1)^2}$.", r"$u=x+1$: $\int(1-1/u^2)\,du=x+1+\frac{1}{x+1}+C$ wait: $x=u-1$, $\int\frac{u-1}{u^2}=\int(u^{-1}-u^{-2})=\ln|u|+1/u+C$.")
+    a(264, r"Trig integrals: odd power of $\sin$ or $\cos$ — peel one factor, $u$ the rest. Even powers — power-reduce with $\sin^2=(1-\cos 2x)/2$. For $\tan^m\sec^n$: if $n$ even, save $\sec^2$; if $m$ odd, save $\sec\tan$.",
+      r"$\int\sin^3 x\,dx$.", r"$\int(1-\cos^2 x)\sin x\,dx=-\cos x+\cos^3 x/3+C$.",
+      r"$\int\cos^2 x\,dx$", r"$\int\frac{1+\cos 2x}{2}=\frac{x}{2}+\frac{\sin 2x}{4}+C$.",
+      r"Using $\sin^2+\cos^2=1$ when you needed a double-angle to integrate an even power.",
+      r"$\int\tan x\sec^2 x\,dx$.", r"$u=\tan x$, $u^2/2+C$.",
+      r"$\int\sin^2 x\cos^2 x\,dx$.", r"$\int\frac14\sin^2 2x=\int\frac{1-\cos 4x}{8}\,dx$.")
+    a(265, r"Trig sub: $\sqrt{a^2-x^2}$ use $x=a\sin\theta$; $\sqrt{a^2+x^2}$ use $x=a\tan\theta$; $\sqrt{x^2-a^2}$ use $x=a\sec\theta$. Draw the triangle to convert back to $x$. Restrict $\theta$ so the substitution is 1-1.",
+      r"$\int\dfrac{1}{\sqrt{1-x^2}}\,dx$ via $x=\sin\theta$.", r"$\int d\theta=\theta=\arcsin x+C$.",
+      r"$\int\dfrac{1}{x^2+1}\,dx$ via $x=\tan\theta$", r"$\int\cos^2/\cos^2\,d\theta=\theta=\arctan x+C$.",
+      r"Dropping $dx=a\cos\theta\,d\theta$, or taking $\sqrt{\cos^2\theta}=|\cos\theta|$ carelessly as $-\cos$ in Q1.",
+      r"For $\sqrt{x^2-4}$, set $x=$", r"$2\sec\theta$ with $\theta\in[0,\pi/2)\cup(\pi/2,\pi]$ as needed.",
+      r"$\int\sqrt{1-x^2}\,dx$ is the", r"area under the circle; trig sub gives $\frac12(x\sqrt{1-x^2}+\arcsin x)+C$.")
+    a(266, r"A reduction formula expresses $I_n=\int\sin^n x\,dx$ (or similar) in terms of $I_{n-2}$ via parts. Awareness: you need not derive every reduction on the GRE, but you should recognize $I_n=\frac{n-1}{n}I_{n-2}$ for Wallis integrals on $[0,\pi/2]$.",
+      r"Wallis: $\int_0^{\pi/2}\sin^n x\,dx$ for even $n=2$ equals", r"$\frac12\cdot\frac{\pi}{2}=\pi/4$. Formula $\frac{1\cdot 3\cdots(n-1)}{2\cdot 4\cdots n}\cdot\frac{\pi}{2}$ for even $n$.",
+      r"Reduction for $\int x^n e^x\,dx$", r"parts: $x^n e^x-n\int x^{n-1}e^x$.",
+      r"Memorizing the formula for the wrong interval (not $[0,\pi/2]$).",
+      r"$\int_0^{\pi/2}\sin^3 x\,dx$ by reduction/odd method.", r"$2/3$.",
+      r"Why reduction exists.", r"Parts lowers the exponent by 2 for $\sin^n$.")
+
+    # F definite integrals
+    a(267, r"A Riemann sum for $f$ on $[a,b]$ partitioned into $n$ subintervals of width $\Delta x_i$ is $\sum f(x_i^*)\Delta x_i$, with $x_i^*$ a sample (left, right, midpoint). As mesh $\to 0$, this $\to\int_a^b f$ when $f$ is integrable.",
+      r"Right Riemann sum for $x^2$ on $[0,1]$ with $n=4$.",
+      r"$\Delta x=1/4$, heights $(1/4)^2,\ldots,1^2$, sum $\frac14(\frac1{16}+\frac4{16}+\frac9{16}+1)=\frac{15}{32}$.",
+      r"Left vs right sums for an increasing $f$", r"Left underestimates, right overestimates.",
+      r"Using $n$ sample points but $\Delta x=1$ instead of $(b-a)/n$.",
+      r"Midpoint sum for $f=x$ on $[0,2]$ with $n=2$.", r"$\Delta x=1$, samples $0.5,1.5$, sum $2$. Exact integral is also $2$.",
+      r"Write $\int_0^1 x\,dx$ as $\lim_{n\to\infty}\sum_{k=1}^n (k/n)(1/n)$.", r"Right sums: $\lim \frac{n(n+1)}{2n^2}=1/2$.")
+    a(268, r"If $f$ is bounded on $[a,b]$ and continuous except at finitely many jumps, it is Riemann integrable. $\int_a^b f$ is the unique number that all Riemann sums approach as mesh$\to 0$. Convention: $\int_a^a=0$, $\int_a^b=-\int_b^a$.",
+      r"Is the sign function integrable on $[-1,1]$?",
+      r"Yes (one jump). Integral $0$ by oddness, or areas cancel.",
+      r"Dirichlet function $1_{\mathbb{Q}}$ on $[0,1]$", r"Not Riemann integrable (upper sums $1$, lower $0$).",
+      r"Thinking a single discontinuity forbids integration ($1_{x>0}$ is integrable).",
+      r"$\int_2^2 \sin x\,dx$.", r"$0$.",
+      r"$\int_3^1 2\,dx$.", r"$-4$.")
+    a(269, r"The definite integral $\int_a^b f$ is net signed area: regions below the axis count negative. It is linear, additive over adjacent intervals, and $f\le g$ implies $\int f\le\int g$.",
+      r"$\int_{-1}^1 x\,dx$.", r"$0$ (odd integrand, symmetric interval).",
+      r"$\int_0^{2\pi}\sin x\,dx$", r"$0$ (equal positive and negative lobes).",
+      r"Reporting net signed area when the question asked for total geometric area.",
+      r"$\int_0^2 (x-1)\,dx$.", r"$[x^2/2-x]_0^2=0$.",
+      r"If $f\ge 0$, $\int_a^b f$ is", r"the geometric area under $y=f$ (when integrable).")
+    a(270, r"Total (geometric) area between $y=f(x)$ and the $x$-axis is $\int_a^b |f(x)|\,dx$. Split at zeros of $f$. Net signed area can be zero while total area is not.",
+      r"Total area between $y=\sin x$ and the $x$-axis on $[0,2\pi]$.",
+      r"$2\int_0^\pi\sin x=4$.",
+      r"Total area of $x$ on $[-1,1]$", r"$\int_{-1}^1|x|=1$, while signed area is $0$.",
+      r"Forgetting to split at roots and integrating $f$ instead of $|f|$.",
+      r"Total area of $x^2-1$ on $[0,2]$.", r"Root at $1$: $\int_0^1(1-x^2)+\int_1^2(x^2-1)=2/3+4/3=2$.",
+      r"When is total area equal to $|\int f|$?", r"When $f$ does not change sign.")
+    a(271, r"FTC Part I: if $f$ is continuous on an interval containing $a$, then $F(x)=\int_a^x f(t)\,dt$ is an antiderivative: $F'(x)=f(x)$. More generally $\frac{d}{dx}\int_{u(x)}^{v(x)} f=f(v)v'-f(u)u'$ (Leibniz rule).",
+      r"Differentiate $\int_0^{x^2}\sin t\,dt$.", r"$\sin(x^2)\cdot 2x$ by FTC I and chain rule.",
+      r"$\dfrac{d}{dx}\int_x^{2x} e^{-t^2}\,dt$", r"$2e^{-4x^2}-e^{-x^2}$.",
+      r"Differentiating under the integral sign and also substituting the bound into $f$ as if it were $F$ not $F'$.",
+      r"$F(x)=\int_1^x \frac{1}{t}\,dt$, $F'(e)$.", r"$1/e$.",
+      r"Why the dummy variable $t$ must not be $x$.", r"The upper limit is the variable of $F$; the integrand’s name is bound.")
+    a(272, r"FTC Part II: if $F'=f$ on $[a,b]$ with $f$ integrable (e.g. continuous), then $\int_a^b f(x)\,dx=F(b)-F(a)$. This is how you evaluate definite integrals: find any antiderivative, then plug in.",
+      r"$\int_0^\pi \cos x\,dx$.", r"$\sin\pi-\sin 0=0$.",
+      r"$\int_1^e \frac{1}{x}\,dx$", r"$1$.",
+      r"Using an antiderivative that is not valid on the whole interval: $\int_{-1}^1 1/x^2$ is improper and diverges, even though $-1/x$ from $-1$ to $1$ looks like $-2$.",
+      r"$\int_0^1 3x^2\,dx$.", r"$1$.",
+      r"Must $F$ be $C^1$?", r"$F$ needs to be an antiderivative; $f=F'$ integrable is the hypothesis used here.")
+    a(273, r"An accumulation function $A(x)=\int_a^x f$ measures net accumulation of $f$ from $a$ to $x$. $A(a)=0$, $A'(x)=f(x)$, and $A$ is increasing where $f>0$. Units of $A$ are (units of $f$)$\times$(units of $x$).",
+      r"If $f$ is velocity, $A(x)=\int_0^x f$ is", r"net displacement from time $0$ to $x$.",
+      r"Where $A$ has a local max", r"Where $f$ changes $+$ to $-$ (first derivative test on $A'=f$).",
+      r"Confusing accumulation with total distance (that would be $\int|f|$).",
+      r"If $f(t)=2t$, $A(x)=\int_0^x f$.", r"$A(x)=x^2$.",
+      r"$A(x)=\int_x^0 f$ equals", r"$-\int_0^x f$.")
+    a(274, r"The average value of integrable $f$ on $[a,b]$ is $\displaystyle\frac{1}{b-a}\int_a^b f(x)\,dx$. MVT for integrals: if $f$ is continuous, some $c$ has $f(c)$ equal to this average.",
+      r"Average of $x^2$ on $[0,3]$.", r"$\frac13\int_0^3 x^2=3$.",
+      r"Average of $\sin x$ on $[0,\pi]$", r"$2/\pi$.",
+      r"Forgetting to divide by $b-a$.",
+      r"Average of a constant $k$.", r"$k$.",
+      r"Does a discontinuous integrable $f$ still have an average?", r"Yes as a number; it may not be attained.")
+
+    # F applications
+    a(275, r"Area between $y=f(x)$ and $y=g(x)$ from $x=a$ to $x=b$ is $\int_a^b |f-g|\,dx$. Split where they cross. Equivalent: $\int |x_{\mathrm{right}}-x_{\mathrm{left}}|\,dy$ in $y$.",
+      r"Area between $y=x$ and $y=x^2$ on $[0,1]$.", r"$\int_0^1(x-x^2)=\frac16$.",
+      r"Area of one arch between $y=\sin x$ and $y=0$ on $[0,\pi]$", r"$2$.",
+      r"Integrating $f-g$ without checking which is on top, and getting a negative area.",
+      r"Area between $y=x$ and $y=1$ from $x=0$ to $2$.", r"Split at $1$: $\frac12+\frac12=1$.",
+      r"Same region in $dy$: $x=\sqrt{y}$ and $x=y$ on $[0,1]$.", r"$\int_0^1(\sqrt{y}-y)\,dy=\frac16$.")
+    a(276, r"Disk method: revolving $y=f(x)\ge 0$ about the $x$-axis, $V=\int_a^b \pi [f(x)]^2\,dx$. About the $y$-axis, use $x=g(y)$. Each cross-section is a disk of radius the distance to the axis.",
+      r"Volume of a ball by revolving $y=\sqrt{r^2-x^2}$ on $[-r,r]$.", r"$\int_{-r}^r \pi(r^2-x^2)\,dx=\frac43\pi r^3$.",
+      r"Solid from $y=x$ on $[0,2]$ about the $x$-axis", r"$\int_0^2\pi x^2\,dx=\frac{8\pi}{3}$ (cone).",
+      r"Forgetting $\pi$, or using $f$ instead of $f^2$.",
+      r"Revolve $y=\sqrt{x}$ on $[0,1]$ about $x$-axis.", r"$\pi\int_0^1 x\,dx=\pi/2$.",
+      r"A cone of height $h$ radius $r$: $y=(r/h)x$ on $[0,h]$, volume", r"$\pi\int_0^h (r/h)^2 x^2\,dx=\frac13\pi r^2 h$.")
+    a(277, r"Washer method: a hole means $V=\int \pi\bigl(R_{\mathrm{outer}}^2-R_{\mathrm{inner}}^2\bigr)\,dx$ (or $dy$). Radii are distances to the axis of rotation, not necessarily the function values themselves if the axis is shifted.",
+      r"Revolve the region between $y=x$ and $y=x^2$ on $[0,1]$ about the $x$-axis.",
+      r"$\pi\int_0^1(x^2-x^4)\,dx=\pi(\frac13-\frac15)=\frac{2\pi}{15}$.",
+      r"Same region about $y=1$", r"Washers in $x$: outer $1-x^2$, inner $1-x$, $V=\pi\int_0^1\bigl[(1-x^2)^2-(1-x)^2\bigr]dx$.",
+      r"Subtracting radii then squaring, instead of subtracting squares.",
+      r"Revolve $y=1$ and $y=0$ on $[0,1]$ about $x$-axis: disk or washer?", r"Disk of radius $1$, volume $\pi$.",
+      r"Annulus area is", r"$\pi(R^2-r^2)$, the washer cross-section.")
+    a(278, r"Shell method: revolving a strip parallel to the axis, $V=\int 2\pi(\mathrm{radius})(\mathrm{height})(\mathrm{thickness})$. About the $y$-axis: $V=\int_a^b 2\pi x f(x)\,dx$ for a region under $f\ge 0$. Often cheaper than washers when $x=g(y)$ is messy.",
+      r"Revolve $y=x^2$ on $[0,1]$ about the $y$-axis (region under the curve).",
+      r"Shells: $2\pi\int_0^1 x\cdot x^2\,dx=2\pi/4=\pi/2$. (Washer in $y$: $\pi\int_0^1(1-y)\,dy=\pi/2$.)",
+      r"Cylinder lateral area $2\pi r h$ is the", r"shell surface; times thickness $dx$ and integrate.",
+      r"Using shell radius $x$ when rotating about $x=2$: radius is $|x-2|$.",
+      r"Region $[0,1]\times[0,1]$ about $y$-axis.", r"$2\pi\int_0^1 x\cdot 1\,dx=\pi$.",
+      r"When shells beat washers.", r"When the opposite variable’s inverse is ugly.")
+    a(279, r"Arc length of a $C^1$ graph $y=f(x)$ from $a$ to $b$ is $L=\int_a^b\sqrt{1+[f'(x)]^2}\,dx$. Parametric: $\int_a^b\sqrt{x'^2+y'^2}\,dt$. Polar: $\int\sqrt{r^2+r'^2}\,d\theta$.",
+      r"Length of $y=x$ on $[0,1]$.", r"$\int_0^1\sqrt{2}\,dx=\sqrt{2}$.",
+      r"Length of the semicircle $y=\sqrt{1-x^2}$ on $[-1,1]$", r"$\pi$ (should match half circumference).",
+      r"Forgetting the $1+$ inside the square root (that would be $\int|f'|$, not length).",
+      r"Parametric $(\cos t,\sin t)$, $t\in[0,2\pi]$.", r"$\int_0^{2\pi} 1\,dt=2\pi$.",
+      r"$y=\ln(\sec x)$ on $[0,\pi/4]$: $1+(y')^2=\sec^2$, length", r"$\int_0^{\pi/4}\sec x\,dx=\ln(\sqrt{2}+1)$.")
+    a(280, r"Surface area of revolution about the $x$-axis: $S=\int_a^b 2\pi f(x)\sqrt{1+[f'(x)]^2}\,dx$ for $f\ge 0$. About the $y$-axis: $2\pi x\,ds$. The factor $2\pi r$ is the circle traced by a point at distance $r$ from the axis.",
+      r"Sphere: revolve $y=\sqrt{r^2-x^2}$ on $[-r,r]$.",
+      r"$ds=\frac{r}{y}dx$, so $2\pi\int y\cdot\frac{r}{y}\,dx=4\pi r^2$.",
+      r"Cone: revolve $y=(R/H)x$ on $[0,H]$ about $x$-axis", r"$S=\pi R\ell$ where $\ell=\sqrt{H^2+R^2}$ is slant height.",
+      r"Using disk volume integrand $\pi y^2$ for surface area.",
+      r"Revolve $y=x$ on $[0,1]$ about $x$-axis: $S$.", r"$2\pi\int_0^1 x\sqrt{2}\,dx=\pi\sqrt{2}$.",
+      r"If $f=0$ at an endpoint, the surface still", r"includes that point as a pole (area can stay finite).")
+    a(281, r"Work: $W=\int F(x)\,dx$ along a line. Hooke: $F=kx$. Pumping liquid: slice, $F=$ weight of a slice, distance each slice travels. Units: force $\times$ distance.",
+      r"Spring $k=10$ N/m, stretch from $0$ to $0.2$ m. Work?",
+      r"$\int_0^{0.2} 10x\,dx=0.2$ J.",
+      r"Lifting a $2$ kg mass $3$ m ($g=9.8$)", r"$W=mgh\approx 58.8$ J (constant force).",
+      r"Integrating force without the distance each slice moves (for pumping).",
+      r"Variable force $F=3x^2$ from $x=1$ to $2$.", r"$\int_1^2 3x^2=7$.",
+      r"Work against gravity pumping is", r"$\int (\mathrm{weight\ of\ slice})\times(\mathrm{distance\ lifted})$.")
+    a(282, r"Center of mass of a lamina with density $\rho$ in the plane: $\bar x=M_y/m$, $\bar y=M_x/m$, with $m=\iint\rho\,dA$, $M_y=\iint x\rho\,dA$, $M_x=\iint y\rho\,dA$. For uniform $\rho$ along a region under $f$ on $[a,b]$: $\bar x=\frac{1}{A}\int x f\,dx$, $\bar y=\frac{1}{A}\int \frac12 f^2\,dx$.",
+      r"Centroid of the triangle under $y=1-x$ on $[0,1]$.",
+      r"$A=1/2$, $\bar x=\frac{1}{A}\int_0^1 x(1-x)\,dx=1/3$, $\bar y=\frac{1}{A}\int_0^1\frac12(1-x)^2\,dx=1/3$.",
+      r"Centroid of a semicircular disk of radius $r$", r"On the axis of symmetry, $\bar y=4r/(3\pi)$ from the diameter.",
+      r"Averaging the endpoint heights and calling that $\bar y$.",
+      r"Uniform rod on $[0,L]$, $\bar x$.", r"$L/2$.",
+      r"If density is higher on the right, $\bar x$ moves", r"right of the geometric centroid.")
+    a(283, r"Moments: $M_y$ (first moment about the $y$-axis) is $\int x\,dm$. $M_x=\int y\,dm$. Second moments (moments of inertia) are $\int r^2\,dm$. On the GRE, first moments for centroids are the main ask.",
+      r"Moment about the $y$-axis of a unit rod on $[1,2]$ with $\rho=1$.",
+      r"$M_y=\int_1^2 x\,dx=3/2$. Mass $1$, $\bar x=3/2$.",
+      r"$M_x$ for the region under $y=x$ on $[0,1]$, $\rho=1$", r"$\int_0^1 \frac12 x^2\,dx=1/6$.",
+      r"Mixing $M_x$ and $M_y$: $M_y$ uses $x\,dm$ because $x$ is the lever arm about the $y$-axis.",
+      r"Mass of $\rho=x$ on $[0,1]$.", r"$\int_0^1 x\,dx=1/2$.",
+      r"If all mass sits on the $y$-axis, $M_y=$", r"$0$, so $\bar x=0$.")
+    a(284, r"Average value $\frac{1}{b-a}\int_a^b f$ is also the geometric probability that a random vertical line hits below $y=f$ if you recast areas as probabilities (uniform on a rectangle). Geometric probability: $P=\mathrm{area}(\mathrm{favorable})/\mathrm{area}(\mathrm{sample})$.",
+      r"A point uniform in the unit square. $P(y<x^2)$.",
+      r"Area under $x^2$ is $1/3$.",
+      r"Average of $f=2x$ on $[0,1]$ equals", r"$1$, which is also $P(U\le 2X)$ type pictures in unit square after scaling.",
+      r"Using net signed area as a probability (probabilities cannot be negative).",
+      r"Two random numbers in $[0,1]$: $P(|X-Y|<1/2)$.", r"Area of the band about $y=x$ of width $1/2$ in the square: $1-(1/2)^2=3/4$.",
+      r"Buffon’s needle is geometric probability using", r"an integral (or area) in an angle-position square.")
+
+    # F improper
+    a(285, r"An improper integral with infinite limits: $\int_a^\infty f=\lim_{B\to\infty}\int_a^B f$, and $\int_{-\infty}^b=\lim_{A\to-\infty}\int_A^b$. Two-sided $\int_{-\infty}^\infty$ needs both one-sided limits separately (not a single $A\to\infty$ of $\int_{-A}^A$, which is the Cauchy principal value).",
+      r"$\int_1^\infty x^{-2}\,dx$.", r"$\lim_{B\to\infty}(1-1/B)=1$, converges.",
+      r"$\int_1^\infty x^{-1}\,dx$", r"$\lim\ln B=\infty$, diverges.",
+      r"Treating $\int_{-\infty}^\infty x\,dx$ as $0$ by oddness without checking that both sides diverge.",
+      r"$\int_0^\infty e^{-x}\,dx$.", r"$1$.",
+      r"Does $\int_{-\infty}^\infty \frac{x}{1+x^2}\,dx$ converge?", r"No (harmonic-like logs); PV is $0$.")
+    a(286, r"If $f$ blows up at an interior point $c\in[a,b]$, split: $\int_a^b f=\lim_{\varepsilon\to 0^+}\int_a^{c-\varepsilon}f+\lim_{\delta\to 0^+}\int_{c+\delta}^b f$. Both limits must exist separately. A single $\varepsilon$ for both sides is again a principal value.",
+      r"$\int_0^1 x^{-1/2}\,dx$.", r"$\lim_{\varepsilon\to 0^+}[2x^{1/2}]_\varepsilon^1=2$, converges.",
+      r"$\int_0^1 x^{-1}\,dx$", r"Diverges ($\ln\varepsilon\to-\infty$).",
+      r"Using FTC on $[-1,1]$ for $1/x^2$ and getting a finite number: the singularity is not integrable.",
+      r"$\int_0^1 x^{-0.9}\,dx$ converge?", r"Yes ($p<1$ for $\int_0^1 x^{-p}$).",
+      r"$p$-test near $0$: $\int_0^1 x^{-p}\,dx$ converges iff", r"$p<1$.")
+    a(287, r"Comparison: if $0\le f\le g$ and $\int g<\infty$, then $\int f<\infty$. If $\int f=\infty$ and $0\le f\le g$, then $\int g=\infty$. Limit comparison: if $f\sim g>0$ at the singularity or infinity, they converge or diverge together.",
+      r"Does $\int_1^\infty \frac{1}{x^2+\sin^2 x}\,dx$ converge?",
+      r"Yes: $0<\frac{1}{x^2+\sin^2 x}\le\frac{1}{x^2}$.",
+      r"$\int_2^\infty \frac{1}{x\ln x}\,dx$", r"Diverges (let $u=\ln x$, $\int du/u$).",
+      r"Comparing with a smaller convergent integrand and claiming convergence (wrong direction).",
+      r"$\int_1^\infty \frac{x}{x^3+1}\,dx$.", r"Converges: $\sim 1/x^2$.",
+      r"Does $\int_0^1 \frac{\sin x}{x^{3/2}}\,dx$ converge?", r"Near $0$, $\sim x^{-1/2}$, yes.")
+    a(288, r"Convergence vs divergence is a yes/no about whether the limit of proper integrals exists as a finite number. Absolute convergence: $\int|f|<\infty$ implies $\int f$ converges. Conditional: $\int f$ converges but $\int|f|$ does not (possible on unbounded intervals).",
+      r"$\int_1^\infty \frac{\sin x}{x}\,dx$.", r"Converges (Dirichlet/integration by parts); not absolutely (harmonic comparison on intervals).",
+      r"$\int_1^\infty e^{-x^2}\,dx$", r"Converges (compare to $e^{-x}$ for large $x$).",
+      r"Saying “diverges to $0$” because the integrand goes to $0$ (necessary but not sufficient: $1/x$).",
+      r"Does integrand $\to 0$ imply $\int_1^\infty$ converges?", r"No.",
+      r"$p$-series integrals $\int_1^\infty x^{-p}$ converge iff", r"$p>1$.")
+
+    # G sequences
+    a(289, r"A sequence $(a_n)$ converges to $L$ if for every $\varepsilon>0$ there exists $N$ so that $n>N$ implies $|a_n-L|<\varepsilon$. Then we write $\lim a_n=L$. The limit, if it exists in $\mathbb{R}$, is unique.",
+      r"Show $a_n=1/n\to 0$.", r"Given $\varepsilon>0$, take $N=1/\varepsilon$. Then $n>N$ implies $1/n<\varepsilon$.",
+      r"$a_n=\frac{n}{n+1}\to$", r"$1$.",
+      r"Confusing sequence convergence with series convergence.",
+      r"$a_n=(-1)^n/n\to$?", r"$0$.",
+      r"Does $a_n=\sin n$ converge?", r"No (dense in $[-1,1]$ by irrationality of $\pi$).")
+    a(290, r"$(a_n)$ diverges if it does not converge to any real $L$. Modes: $|a_n|\to\infty$; oscillation ($(-1)^n$); two or more subsequential limits. We write $a_n\to\infty$ as a specific kind of divergence, not a real limit.",
+      r"Does $a_n=(-1)^n$ diverge?", r"Yes: subsequences $1$ and $-1$.",
+      r"$a_n=n^2$", r"Diverges to $+\infty$.",
+      r"Calling $a_n\to\infty$ “convergent to infinity.”",
+      r"$a_n=n(-1)^n$ diverges how?", r"Unbounded oscillation; neither $\to\infty$ nor a finite limit.",
+      r"If $a_n$ does not tend to $0$, $\sum a_n$", r"Diverges (necessary condition).")
+    a(291, r"If $a_n\to L$ and $b_n\to M$, then $a_n\pm b_n\to L\pm M$, $a_nb_n\to LM$, and $a_n/b_n\to L/M$ if $M\neq 0$. Continuous $f$ preserves limits: $f(a_n)\to f(L)$. Squeeze: $c_n\le a_n\le d_n$ and $c_n,d_n\to L$ implies $a_n\to L$.",
+      r"$\lim \frac{3n^2+1}{n^2-n}$.", r"Divide by $n^2$: $3$.",
+      r"$\lim \frac{\sin n}{n}$", r"$0$ by squeeze $|\,|\le 1/n$.",
+      r"Quotient law when $b_n\to 0$ but $a_n\not\to 0$.",
+      r"$\lim(1+1/n)^n$.", r"$e$.",
+      r"If $a_n\to 2$, $\lim a_n^2$.", r"$4$.")
+    a(292, r"Monotone: $a_{n+1}\ge a_n$ (increasing) or $\le$ (decreasing). A monotone sequence either converges (if bounded) or diverges to $\pm\infty$. To prove convergence, prove monotonicity and a bound; the limit may still be unknown.",
+      r"$a_1=\sqrt{2}$, $a_{n+1}=\sqrt{2+a_n}$. Show increasing and bounded by $2$.",
+      r"Induction: $a_n\le a_{n+1}\le 2$. Converges; limit $L=\sqrt{2+L}$ so $L=2$.",
+      r"$a_n=n/(n+1)$ is", r"increasing, bounded by $1$, $\to 1$.",
+      r"Monotone $\Rightarrow$ convergent (need a bound).",
+      r"Is $a_n=(-1)^n$ monotone?", r"No.",
+      r"$a_n=1-1/n$ is", r"increasing, $\to 1$.")
+    a(293, r"Bounded monotone convergence theorem: a monotone bounded real sequence converges. This uses completeness of $\mathbb{R}$ (the limit is the sup of the set of terms for an increasing sequence). False in $\mathbb{Q}$.",
+      r"Why $a_n=$ increasing enumeration of rationals in $(0,\sqrt{2})$ need not converge in $\mathbb{Q}$.",
+      r"It is increasing and bounded in $\mathbb{Q}$ but the sup $\sqrt{2}\notin\mathbb{Q}$.",
+      r"A bounded sequence that is not monotone", r"Need not converge: $(-1)^n$.",
+      r"Using BMCT in $\mathbb{Q}$ as if $\mathbb{Q}$ were complete.",
+      r"Increasing and $a_n\le 5$: conclusion?", r"Converges to some $L\le 5$.",
+      r"Name the axiom that makes BMCT true in $\mathbb{R}$.", r"Completeness / LUB property.")
+    a(294, r"A subsequence $(a_{n_k})$ is $a_{n_1},a_{n_2},\ldots$ with $n_k$ strictly increasing. If $a_n\to L$ then every subsequence $\to L$. Conversely, if every subsequence has a further subsequence $\to L$, then $a_n\to L$. Subsequential limits are limits of convergent subsequences.",
+      r"Subsequential limits of $a_n=(-1)^n$.", r"$\{-1,1\}$.",
+      r"If $a_n\to L$, a subsequence", r"also $\to L$.",
+      r"Picking a subsequence that ignores the terms that break a hoped-for limit and claiming the original converges.",
+      r"Does $a_n=\sin(n\pi/2)$ have a subsequence $\to 0$?", r"Yes: $n=2k$. Also subsequences $\to\pm 1$.",
+      r"The set of subsequential limits of a convergent sequence is", r"a singleton.")
+    a(295, r"Bolzano–Weierstrass: every bounded sequence in $\mathbb{R}^n$ has a convergent subsequence. Proof idea in $\mathbb{R}$: bisection of a bounding interval, or limsup. Equivalent to compactness of closed bounded intervals.",
+      r"Does $a_n=(-1)^n n/(n+1)$ have a convergent subsequence?",
+      r"Yes, bounded; e.g. even terms $\to 1$.",
+      r"$a_n=n$ has a convergent subsequence?", r"No: unbounded. BW needs boundedness.",
+      r"Claiming the whole sequence converges because a subsequence does.",
+      r"Bounded sequence in $\mathbb{R}$ must have", r"at least one subsequential limit in $\mathbb{R}$.",
+      r"Is BW true in $\mathbb{Q}$?", r"No: bounded sequences of rationals need not have a rational subsequential limit.")
+    a(296, r"$(a_n)$ is Cauchy if for every $\varepsilon>0$ there exists $N$ so that $m,n>N$ implies $|a_m-a_n|<\varepsilon$. In $\mathbb{R}$, Cauchy $\Leftrightarrow$ convergent. Cauchy is an intrinsic test: you do not name $L$.",
+      r"Show $a_n=1/n$ is Cauchy.", r"$|1/m-1/n|\le 1/N$ for $m,n>N$.",
+      r"$a_n=H_n$ (harmonic) is Cauchy?", r"No: $H_{2n}-H_n\ge 1/2$.",
+      r"Proving Cauchy by $|a_n-L|<\varepsilon$ without knowing you need completeness to get $L$ from Cauchy.",
+      r"In $\mathbb{R}$, Cauchy sequences converge: true or false?", r"True.",
+      r"A sequence with $|a_{n+1}-a_n|\to 0$ is Cauchy?", r"Not necessarily ($H_n$).")
+    a(297, r"Completeness of $\mathbb{R}$: every Cauchy sequence of reals converges to a real. Equivalent forms: LUB property, nested interval property, BW. $\mathbb{Q}$ is not complete. Completeness is why monotone bounded sequences converge in $\mathbb{R}$.",
+      r"Give a Cauchy sequence of rationals with no rational limit.",
+      r"Truncations of $\sqrt{2}$: $1,1.4,1.41,\ldots$.",
+      r"Nested intervals $[a_n,b_n]$ with length $\to 0$", r"Intersect in exactly one real (completeness).",
+      r"Saying $\mathbb{Q}$ is complete because Cauchy sequences of rationals “have limits” (the limits may be irrational).",
+      r"Is every convergent sequence Cauchy?", r"Yes, in any metric space.",
+      r"Completeness is about", r"Cauchy sequences converging inside the space.")
+    a(298, r"$\limsup a_n=\inf_n\sup_{k\ge n}a_k$ (possibly $\pm\infty$). $\liminf=\sup_n\inf_{k\ge n}a_k$. Always $\liminf\le\limsup$. The sequence converges (in the extended reals) iff they are equal. $\limsup$ is the largest subsequential limit in $\overline{\mathbb{R}}$.",
+      r"$\limsup (-1)^n$ and $\liminf$.", r"$1$ and $-1$.",
+      r"$a_n=1+1/n$, $\limsup$", r"$1$ (equals the limit).",
+      r"Mixing $\sup a_n$ with $\limsup a_n$: for $a_n=-n$, $\sup$ is $-1$ (if $n\ge 1$) wait $a_1=-1$, $\sup=-1$, $\limsup=-\infty$.",
+      r"$a_n=n$ even, $0$ odd: $\limsup$.", r"$+\infty$? Even terms $\to\infty$, odd $0$, so $\limsup=\infty$, $\liminf=0$.",
+      r"Convergent iff", r"$\liminf=\limsup$ and finite, for a real limit.")
+
+    # G series
+    a(299, r"An infinite series $\sum_{n=1}^\infty a_n$ converges to $S$ if the sequence of partial sums $s_N=\sum_{n=1}^N a_n$ converges to $S$. The series is the limit of sums, not a sum of infinitely many numbers in the naive sense.",
+      r"Partial sums of $\sum_{k=1}^n \frac12^k$.", r"Geometric: $s_n=\frac12(1-(1/2)^n)/(1-1/2)=1-(1/2)^n\to 1$.",
+      r"If $s_N\to S$, the remainder $S-s_N$", r"$\to 0$.",
+      r"Confusing $a_n\to 0$ with $\sum a_n$ converging.",
+      r"$s_n=1-1/n$, the series is", r"telescoping with sum $1$; $a_n=s_n-s_{n-1}=1/(n(n-1))$.",
+      r"A series converges only if $(s_n)$ converges, not if $(a_n)$ does.", r"Correct: $a_n\to 0$ is necessary, not sufficient.")
+    a(300, r"Necessary condition: if $\sum a_n$ converges, then $a_n\to 0$. Contrapositive: if $a_n\not\to 0$, the series diverges. The converse is false: $1/n\to 0$ but the harmonic series diverges.",
+      r"Does $\sum (-1)^n$ converge?", r"No: terms do not go to $0$.",
+      r"$\sum n/(n+1)$", r"Diverges: terms $\to 1\neq 0$.",
+      r"Using $a_n\to 0$ as a convergence test (it is not sufficient).",
+      r"$\sum \frac{n}{n+1}$ vs $\sum \frac{1}{n}$.", r"First terms $\not\to 0$; second terms $\to 0$ but still diverges.",
+      r"If $a_n\to 5$, $\sum a_n$", r"Diverges.")
+    a(301, r"Geometric series: $\sum_{n=0}^\infty r^n=\dfrac{1}{1-r}$ for $|r|<1$, diverges for $|r|\ge 1$ (except the $r=-1$ oscillating case still diverges). Finite sum $\sum_{k=0}^{N-1} r^k=\frac{1-r^N}{1-r}$ for $r\neq 1$.",
+      r"$\sum_{n=0}^\infty (1/3)^n$.", r"$1/(1-1/3)=3/2$.",
+      r"$\sum_{n=1}^\infty (2/3)^n$", r"$(2/3)/(1-2/3)=2$.",
+      r"Using $1/(1-r)$ when $|r|>1$.",
+      r"$\sum_{n=0}^\infty (-1/2)^n$.", r"$1/(1+1/2)=2/3$.",
+      r"Does $\sum 2^n$ converge?", r"No, $|r|=2>1$.")
+    a(302, r"A telescoping series has partial sums that collapse: typically $a_n=b_n-b_{n+1}$. Then $s_N=b_1-b_{N+1}$, and the sum is $b_1-\lim b_{N+1}$ when that limit exists. Partial fractions often produce telescoping.",
+      r"$\sum_{n=1}^\infty \bigl(\frac{1}{n}-\frac{1}{n+1}\bigr)$.", r"$s_N=1-1/(N+1)\to 1$.",
+      r"$\sum \frac{1}{n(n+1)}$", r"$1$ by partial fractions.",
+      r"Writing the general term as a difference but forgetting the leftover end terms.",
+      r"$\sum_{n=2}^\infty \bigl(\ln n-\ln(n+1)\bigr)$.", r"Telescopes to $-\ln 2$ wait: $s_N=\ln 2-\ln(N+1)\to-\infty$, diverges.",
+      r"$a_n=\frac{1}{n}-\frac{1}{n+2}$: sum?", r"$s_N=1+1/2-1/(N+1)-1/(N+2)\to 3/2$.")
+    a(303, r"$p$-series $\sum_{n=1}^\infty n^{-p}$ converges iff $p>1$. Integral test or Cauchy condensation. Harmonic series is $p=1$, diverges. $p=2$ is $\pi^2/6$ (Basel), awareness-level.",
+      r"Does $\sum 1/n^{1.01}$ converge?", r"Yes, $p=1.01>1$.",
+      r"$\sum 1/\sqrt{n}$", r"Diverges, $p=1/2\le 1$.",
+      r"Comparing $p=1$ to geometric $r=1$ sloppily.",
+      r"$\sum n^{-3}$.", r"Converges.",
+      r"Cauchy condensation for $p$-series: $2^n (2^{-n})^p=2^{n(1-p)}$, geometric iff", r"$p>1$.")
+    a(304, r"Direct comparison: for $0\le a_n\le b_n$, if $\sum b_n<\infty$ then $\sum a_n<\infty$; if $\sum a_n=\infty$ then $\sum b_n=\infty$. Use a known $p$ or geometric series as the comparison.",
+      r"$\sum \frac{1}{n^2+n}$.", r"$0<\frac{1}{n^2+n}<\frac{1}{n^2}$, converges.",
+      r"$\sum \frac{1}{n-1/2}$ for $n\ge 1$", r"For large $n$, $>1/n$, diverges.",
+      r"Comparing with a smaller convergent series to claim convergence (wrong way).",
+      r"$\sum \frac{\sin^2 n}{n^2}$.", r"Converges: $0\le\sin^2 n/n^2\le 1/n^2$.",
+      r"Does $\sum \frac{1}{n^2-1}$ ($n\ge 2$) converge?", r"Yes, $\sim 1/n^2$.")
+    a(305, r"Limit comparison: if $a_n>0$, $b_n>0$, and $a_n/b_n\to L\in(0,\infty)$, then $\sum a_n$ and $\sum b_n$ both converge or both diverge. If $L=0$ and $\sum b_n<\infty$, then $\sum a_n<\infty$. If $L=\infty$ and $\sum b_n=\infty$, then $\sum a_n=\infty$.",
+      r"$\sum \frac{n+1}{n^3+2}$.", r"Compare to $1/n^2$: ratio $\to 1$, converges.",
+      r"$\sum \frac{n}{n+1}$ vs $1$", r"Ratio $\to 1$, both diverge.",
+      r"Using limit comparison with $L=0$ and a divergent $b_n$ (inconclusive).",
+      r"$\sum \frac{\sqrt{n}}{n^2+1}$.", r"Compare to $n^{-3/2}$, converges.",
+      r"$a_n=1/n^2$, $b_n=1/n$, $a_n/b_n\to 0$: conclusion?", r"Inconclusive from this $L=0$ with divergent $b$; we already know $a$ converges.")
+    a(306, r"Integral test: if $f$ is positive, continuous, eventually decreasing on $[N,\infty)$, then $\sum_{n=N}^\infty f(n)$ and $\int_N^\infty f(x)\,dx$ both converge or both diverge. The integral also bounds the remainder: $R_N\le\int_N^\infty f$.",
+      r"Does $\sum \frac{1}{n\ln n}$ ($n\ge 2$) converge?", r"No: $\int_2^\infty dx/(x\ln x)=\infty$.",
+      r"$\sum e^{-n}$", r"Converges (integral or geometric $e^{-1}$).",
+      r"Applying the integral test to a non-monotone $f$ (e.g. spikes).",
+      r"$\sum n e^{-n^2}$.", r"Converges: $\int x e^{-x^2}\,dx$ finite.",
+      r"Harmonic series via integral test.", r"$\int_1^\infty dx/x=\infty$.")
+    a(307, r"Alternating series (Leibniz) test: if $b_n\ge 0$ is decreasing and $b_n\to 0$, then $\sum (-1)^{n+1} b_n$ converges. Remainder after $N$ terms is at most $b_{N+1}$ in absolute value, with the sign of the first omitted term.",
+      r"Does $\sum (-1)^{n+1}/n$ converge?", r"Yes (alternating harmonic). Sum $\ln 2$.",
+      r"Error after $4$ terms of $1-1/2+1/3-\cdots$", r"$\le 1/5$.",
+      r"Using AST when $b_n$ is not monotone ($b_n=1/n$ for $n$ even, $1/n^2$ odd style counterexamples).",
+      r"$\sum (-1)^n/\sqrt{n}$.", r"Converges (conditionally).",
+      r"Does $\sum (-1)^n$ pass AST?", r"No: $b_n=1\not\to 0$.")
+    a(308, r"Ratio test: $L=\lim |a_{n+1}/a_n|$. If $L<1$, absolute convergence; $L>1$ (or $\infty$), divergence; $L=1$, inconclusive. Ideal for factorials and exponentials.",
+      r"$\sum n^3/3^n$.", r"$|a_{n+1}/a_n|\to 1/3<1$, converges.",
+      r"$\sum 1/n!$ ", r"$L=0<1$, converges (to $e-1$ from $n=1$).",
+      r"Stopping at $L=1$ and declaring divergence (harmonic has $L=1$ too).",
+      r"$\sum n!/n^n$.", r"$L=0<1$, converges.",
+      r"Ratio test on $\sum 1/n^2$.", r"$L=1$, inconclusive (but $p$-series converges).")
+    a(309, r"Root test: $L=\lim\sup |a_n|^{1/n}$. $L<1$ absolute convergence; $L>1$ divergence; $L=1$ inconclusive. Useful when $a_n$ is an $n$th power. $|a_n|^{1/n}\to 1$ for polynomials and $n!^{1/n}/n\to 1/e$.",
+      r"$\sum (2/3)^n$.", r"$L=2/3<1$, converges (geometric).",
+      r"$\sum (n/(n+1))^{n^2}$", r"Root: $\bigl(n/(n+1)\bigr)^n\to e^{-1}<1$, converges.",
+      r"Using root test as if $L=1$ meant divergence.",
+      r"$\sum 2^n/n^n$.", r"$L=0$, converges.",
+      r"Root test on harmonic series.", r"$L=1$, inconclusive.")
+    a(310, r"Absolute convergence: $\sum |a_n|$ converges. Then $\sum a_n$ converges, and rearrangements do not change the sum. Ratio/root tests, comparison, and $p$-series on $|a_n|$ are the usual tools.",
+      r"Is $\sum (-1)^n/n^2$ absolutely convergent?", r"Yes: $\sum 1/n^2<\infty$.",
+      r"$\sum (-1)^n/n$", r"Not absolute (harmonic); conditionally convergent.",
+      r"Absolute convergence requires $a_n\ge 0$ (no: it is about $|a_n|$).",
+      r"$\sum \frac{\cos n}{n^2}$.", r"Absolutely convergent.",
+      r"If $\sum |a_n|$ diverges, $\sum a_n$", r"May still converge (conditional) or diverge.")
+    a(311, r"Conditional convergence: $\sum a_n$ converges but $\sum |a_n|$ diverges. Prototype: alternating harmonic. Riemann rearrangement: the sum can be rearranged to any real or to diverge.",
+      r"Classify $\sum (-1)^{n+1}/n$.", r"Conditional (AST + harmonic).",
+      r"Can a positive-term series be conditionally convergent?", r"No: $|a_n|=a_n$.",
+      r"Calling every alternating series conditionally convergent (it may be absolute, e.g. $(-1)^n/n^2$).",
+      r"$\sum (-1)^n/\sqrt{n}$.", r"Conditional.",
+      r"Rearrangement of a conditionally convergent series", r"can change the sum.")
+    a(312, r"Rearrangement: if $\sum a_n$ is absolutely convergent, every rearrangement has the same sum. If conditionally convergent, rearrangements can produce any sum in $[-\infty,\infty]$ (Riemann). On the GRE: do not rearrange conditionally convergent series casually.",
+      r"Can you rearrange $\sum (-1)^{n+1}/n=\ln 2$ and change the sum?",
+      r"Yes if you permute order (Riemann). Pairing consecutive terms does not change the sum of a convergent series, but a general rearrangement can produce any real.",
+      r"A geometric series may be rearranged freely because", r"it is absolutely convergent for $|r|<1$.",
+      r"Treating Grandi’s $1-1+1-1+\cdots$ as a rearrangement example — it does not converge at all.",
+      r"True or false: if $\sum |a_n|<\infty$, rearrangements preserve the sum.", r"True.",
+      r"Regrouping $(1-1)+(1-1)+\cdots$ vs $1+(-1+1)+\cdots$.", r"Both are invalid as sums of a divergent series.")
+
+    # G power series
+    a(313, r"A power series about $c$ is $\sum_{n=0}^\infty a_n (x-c)^n$. It always converges at $x=c$. The set of convergence is an interval centered at $c$ (possibly a point, finite interval, or $\mathbb{R}$).",
+      r"The series $\sum (x-2)^n$. Center and a point of convergence.",
+      r"Center $2$; converges at $x=2$ (and $|x-2|<1$).",
+      r"$\sum n! x^n$ converges for", r"only $x=0$ (ratio test $L=\infty$ for $x\neq 0$).",
+      r"Calling a Laurent series with negative powers a power series.",
+      r"Does $\sum x^n/n!$ converge at $x=100$?", r"Yes, to $e^{100}$.",
+      r"Power series is a series of functions; at each $x$ it is", r"a numerical series.")
+    a(314, r"The radius of convergence $R$ satisfies: absolute convergence for $|x-c|<R$, divergence for $|x-c|>R$. Formula: $1/R=\lim |a_{n+1}/a_n|$ or $\lim\sup |a_n|^{1/n}$ when the limits exist (with $1/0=\infty$, $1/\infty=0$).",
+      r"$R$ for $\sum x^n/n$.", r"$|a_{n+1}/a_n|\to 1$, so $R=1$.",
+      r"$\sum x^n/n!$ radius", r"$\infty$.",
+      r"Computing $R$ and forgetting it is about $|x-c|$, not $x$.",
+      r"$\sum n^n x^n$: $R$.", r"$0$.",
+      r"$\sum (x/3)^n$: $R$.", r"$3$.")
+    a(315, r"The interval of convergence is the set of $x$ where the series converges. After finding $R$, test the two endpoints separately (they may converge conditionally, absolutely, or diverge). Interior: absolute.",
+      r"Interval of $\sum x^n/n$.", r"Ratio: $|x|<1$. At $x=1$ harmonic diverges; at $x=-1$ alternating harmonic converges. Interval $[-1,1)$.",
+      r"$\sum x^n$", r"$(-1,1)$: both endpoints diverge.",
+      r"Not testing endpoints, or testing them with the ratio test (always $L=1$ there).",
+      r"$\sum x^n/n^2$ interval.", r"$[-1,1]$ (absolute at ends, $p=2$).",
+      r"Open interval of radius $2$ about $3$.", r"$(1,5)$; endpoints extra.")
+    a(316, r"Inside the open interval of convergence, a power series may be differentiated term by term: if $f(x)=\sum a_n(x-c)^n$, then $f'(x)=\sum n a_n(x-c)^{n-1}$, same radius $R$. Endpoints must be re-tested for the differentiated series.",
+      r"Differentiate $\sum_{n=0}^\infty x^n=1/(1-x)$ for $|x|<1$.",
+      r"$\sum_{n=1}^\infty n x^{n-1}=1/(1-x)^2$.",
+      r"Radius after differentiating $\sum x^n/n^2$", r"Still $1$; endpoints of the derivative series may change.",
+      r"Differentiating and keeping the same endpoint convergence without checking.",
+      r"Termwise derivative of $\sum x^n/n$ on $(-1,1)$.", r"$\sum x^{n-1}=1/(1-x)$.",
+      r"At an endpoint, termwise differentiation", r"need not be valid even if the original converges there.")
+    a(317, r"Inside the open interval, term-by-term integration is valid: $\int\sum a_n(x-c)^n=\sum a_n\frac{(x-c)^{n+1}}{n+1}+C$, same $R$. Integrating can improve endpoint behavior (e.g. $\sum x^n$ $\to$ $\sum x^{n+1}/(n+1)$).",
+      r"Integrate $\sum_{n=0}^\infty x^n=1/(1-x)$ from $0$ to $x$, $|x|<1$.",
+      r"$\sum x^{n+1}/(n+1)=-\ln(1-x)$.",
+      r"The series for $\ln(1+x)$ at $x=1$", r"Alternating harmonic, converges to $\ln 2$ (endpoint gained).",
+      r"Integrating termwise outside the radius.",
+      r"Termwise $\int_0^x \sum t^n\,dt$.", r"$\sum x^{n+1}/(n+1)$.",
+      r"Radius after integration of a power series.", r"Unchanged.")
+    a(318, r"If $f$ is infinitely differentiable at $c$, the Taylor series is $\sum \frac{f^{(n)}(c)}{n!}(x-c)^n$. It may have $R=0$, or $R>0$ but fail to equal $f$ (classic bump $e^{-1/x^2}$). Maclaurin means $c=0$. Equality $f=$ its Taylor series on an interval is a separate theorem (remainder $\to 0$).",
+      r"Taylor series of $e^x$ at $0$.", r"$\sum x^n/n!$, equals $e^x$ for all $x$ (remainder $\to 0$).",
+      r"Does a $C^\infty$ function always equal its Taylor series?", r"No.",
+      r"Writing Taylor coefficients without $n!$.",
+      r"Taylor of $\sin x$ at $0$.", r"$x-x^3/3!+x^5/5!-\cdots$.",
+      r"Taylor of a polynomial of degree $k$ at any $c$.", r"Finite: the polynomial rewritten in powers of $(x-c)$.")
+    a(319, r"Memorize: $e^x=\sum x^n/n!$, $\sin x=\sum (-1)^n x^{2n+1}/(2n+1)!$, $\cos x=\sum (-1)^n x^{2n}/(2n)!$, $\frac{1}{1-x}=\sum x^n$ for $|x|<1$, $\ln(1+x)=\sum (-1)^{n+1}x^n/n$ for $|x|<1$ (and $x=1$).",
+      r"Series for $\cos x$ through order $4$.", r"$1-x^2/2+x^4/24$.",
+      r"$e^{i\theta}$ via series", r"$\cos\theta+i\sin\theta$ (Euler).",
+      r"Using $\sum x^n=1/(1-x)$ at $x=2$.",
+      r"Series for $\sin x$ at $x=0$ is odd: why?", r"$\sin$ is odd; even derivatives vanish at $0$.",
+      r"$1/(1+x^2)$ from geometric.", r"$\sum (-1)^n x^{2n}$ for $|x|<1$.")
+    a(320, r"Geometric expansion is the engine: $\frac{1}{1-u}=\sum u^n$ for $|u|<1$. Substitute $u=$ a polynomial or multiple of $x$ to expand rationals. Differentiate/integrate the geometric series to get $\frac{1}{(1-x)^2}$ and $-\ln(1-x)$.",
+      r"Expand $\frac{1}{1+x}$ about $0$.", r"$\sum (-1)^n x^n$, $|x|<1$.",
+      r"$\frac{1}{1-2x}$", r"$\sum 2^n x^n$, $|x|<1/2$.",
+      r"Substituting $u=x+x^2$ and ignoring that $|u|<1$ is a smaller $x$-interval.",
+      r"Expand $x/(1-x)$.", r"$\sum_{n=1}^\infty x^n$ for $|x|<1$.",
+      r"$\frac{1}{1+x^2}=\sum (-1)^n x^{2n}$, $R=$", r"$1$.")
+    a(321, r"Binomial series: $(1+x)^\alpha=\sum_{k=0}^\infty \binom{\alpha}{k} x^k$ for $|x|<1$, where $\binom{\alpha}{k}=\frac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!}$. For $\alpha\in\mathbb{N}$ it terminates (ordinary binomial theorem). Endpoints depend on $\alpha$.",
+      r"$1/\sqrt{1+x}$ through order $2$.", r"$(1+x)^{-1/2}=1-\frac12 x+\frac{(-1/2)(-3/2)}{2}x^2+\cdots=1-\frac x2+\frac38 x^2+\cdots$.",
+      r"$(1+x)^3$", r"$1+3x+3x^2+x^3$ (finite).",
+      r"Using $\binom{\alpha}{k}$ as if $\alpha$ must be an integer.",
+      r"Linear approximation of $(1+x)^\alpha$.", r"$1+\alpha x$.",
+      r"Radius of the binomial series for non-integer $\alpha$.", r"$1$.")
+    a(322, r"Cauchy product: $(\sum a_n)(\sum b_n)=\sum c_n$ with $c_n=\sum_{k=0}^n a_k b_{n-k}$, valid when at least one series is absolutely convergent (Mertens), or both absolutely. For power series, multiply and collect powers inside the common open disk.",
+      r"$(\sum x^n)(\sum x^n)=\sum (n+1)x^n$ for $|x|<1$.", r"Yes: $c_n=\sum_{k=0}^n 1=n+1=1/(1-x)^2$ series.",
+      r"Square of $\sum x^n/n!$ ", r"$e^{x}\cdot e^{x}=e^{2x}=\sum (2x)^n/n!$, also Cauchy product.",
+      r"Multiplying two conditionally convergent series and assuming the Cauchy product converges to the product.",
+      r"Linear terms of $(1+x+x^2+\cdots)(1-x+x^2-\cdots)$.", r"$1+x^2+x^4+\cdots=1/(1-x^2)$ for $|x|<1$.",
+      r"$c_2$ for $a=(1,1,1,\ldots)$, $b=(1,-1,0,0,\ldots)$.", r"$a_0 b_2+a_1 b_1+a_2 b_0=0+1\cdot(-1)+1\cdot 1=0$.")
+
+    # G uniform
+    a(323, r"Pointwise convergence: for each $x$, $f_n(x)\to f(x)$. Uniform: $\sup_x |f_n(x)-f(x)|\to 0$. Uniform $\Rightarrow$ pointwise; the converse is false. Uniform keeps continuity: uniform limit of continuous is continuous.",
+      r"$f_n(x)=x^n$ on $[0,1]$. Pointwise limit?",
+      r"$0$ on $[0,1)$, $1$ at $1$. Not uniform (limit discontinuous, or $\sup=1$).",
+      r"$f_n=x/n$ on $\mathbb{R}$", r"Pointwise $0$, not uniform ($\sup=\infty$). On $[0,1]$, uniform.",
+      r"Checking only one $x$ and calling it uniform.",
+      r"Is $f_n=\sin(nx)/n$ uniform on $\mathbb{R}$?", r"Yes, $\sup\le 1/n\to 0$.",
+      r"Uniform limit of continuous functions is", r"continuous.")
+    a(324, r"Intuition: uniform means a single $N(\varepsilon)$ works for all $x$ in the set. Graphs of $f_n$ sit in an $\varepsilon$-tube around $f$. A moving bump of height $1$ and width $1/n$ converges pointwise to $0$ but not uniformly.",
+      r"The bump $f_n$ of height $1$ on $[n,n+1]$. Pointwise vs uniform on $\mathbb{R}$.",
+      r"Pointwise $0$ (each $x$ is eventually outside the bump); $\sup=1$, not uniform.",
+      r"Weierstrass: if $|f_n|\le M_n$ and $\sum M_n<\infty$", r"then $\sum f_n$ converges uniformly (M-test).",
+      r"Thinking “fast pointwise” is automatically uniform.",
+      r"Does $f_n(x)=e^{-(x-n)^2}$ converge uniformly on $\mathbb{R}$ to $0$?", r"No, $\sup=1$.",
+      r"On a compact set, $C^0$ plus pointwise plus monotone ($Dini$) can give", r"uniform convergence.")
+    a(325, r"Weierstrass $M$-test: if $|u_n(x)|\le M_n$ on a set $S$ for all $n$, with $\sum M_n<\infty$ (numerical), then $\sum u_n$ converges absolutely and uniformly on $S$. Power series converge uniformly on compact subintervals of the open disk of convergence.",
+      r"Does $\sum \sin(nx)/n^2$ converge uniformly on $\mathbb{R}$?",
+      r"Yes: $|\sin(nx)/n^2|\le 1/n^2$.",
+      r"$\sum x^n$ on $[-r,r]$ for $r<1$", r"Uniform by $M_n=r^n$. Not uniform on $(-1,1)$ (term $x^n$ not uniformly small near $1$).",
+      r"Using $M_n=|u_n(x)|$ depending on $x$ as if it were a numerical bound.",
+      r"$\sum \frac{\cos(nx)}{n!}$ on $\mathbb{R}$.", r"Uniform, $M_n=1/n!$.",
+      r"$M$-test gives absolute uniform convergence: true?", r"Yes, absolute at each $x$ and uniform.")
+    a(326, r"If $f_n\to f$ uniformly on $[a,b]$ and each $f_n$ is integrable, then $\int_a^b f_n\to\int_a^b f$. For derivatives you need uniform convergence of $f_n'$ (plus one point of convergence of $f_n$). Interchanging $\lim\sum$ with $\int$ or $d/dx$ requires such hypotheses; power series inside the radius are the GRE-safe case.",
+      r"May one integrate $\sum_{n=0}^\infty x^n$ termwise on $[0,1/2]$?",
+      r"Yes: uniform on $[0,1/2]$.",
+      r"Pointwise limit of $f_n(x)=n^2 x(1-x)^n$ on $[0,1]$ is $0$, but integrals", r"need not tend to $0$ (mass escaping to a spike) — a standard warning; details vary with the exact bump.",
+      r"Interchanging sum and integral for a conditionally convergent series of functions without uniform/absolute control.",
+      r"Termwise derivative of a power series on a compact set inside $(-R,R)$.", r"Legal.",
+      r"Uniform convergence of $f_n$ alone implies $f_n'\to f'$?", r"No. Need control on derivatives.")
+
+    # H multivariable functions
+    a(327, r"A function of several variables is $f:D\subset\mathbb{R}^n\to\mathbb{R}$ (or $\mathbb{R}^m$). The graph of $f:\mathbb{R}^2\to\mathbb{R}$ is a surface $z=f(x,y)$. Vector-valued maps are $n$ scalar functions in parallel.",
+      r"Domain of $f(x,y)=\sqrt{1-x^2-y^2}$.", r"The closed unit disk $x^2+y^2\le 1$.",
+      r"$f(x,y)=x^2+y^2$ graph is", r"a paraboloid.",
+      r"Treating $f(x,y)$ as if one variable were a parameter without saying so.",
+      r"Range of $f(x,y)=x^2+y^2$.", r"$[0,\infty)$.",
+      r"$F(x,y)=(x+y,xy)$ maps $\mathbb{R}^2$ to", r"$\mathbb{R}^2$.")
+    a(328, r"The natural domain in $\mathbb{R}^n$ is the largest set where the formula makes sense: exclude zeros of denominators, negative even roots, logs of nonpositives. Domains are often described by inequalities (half-spaces, balls, exteriors).",
+      r"Domain of $\ln(x+y)$.", r"$x+y>0$, an open half-plane.",
+      r"Domain of $1/(x^2+y^2-1)$", r"All $(x,y)$ not on the unit circle.",
+      r"Including the boundary of a log or square root when it is not in the domain.",
+      r"Domain of $\sqrt{y-x^2}$.", r"On or above the parabola $y=x^2$.",
+      r"Is the domain of $1/(xy)$ open?", r"Yes: $\mathbb{R}^2$ minus the axes.")
+    a(329, r"A level curve of $f(x,y)$ is $f(x,y)=c$. Different $c$ give a contour map. The gradient (later) is perpendicular to level curves. You can reconstruct a lot of $f$ from labeled contours.",
+      r"Level curves of $f=x^2+y^2$.", r"Circles centered at the origin (and the origin for $c=0$).",
+      r"$f=x-y$, level $c$", r"Lines $y=x-c$.",
+      r"Calling $f(x,y)=c$ a level surface (that language is for three variables).",
+      r"Level curves of $f=xy$.", r"Hyperbolas $xy=c$.",
+      r"Can two level curves of a function meet?", r"Only if they share the same $c$; distinct $c$ are disjoint.")
+    a(330, r"A level surface of $f(x,y,z)$ is $f(x,y,z)=c$. Example: $x^2+y^2+z^2=c$ spheres. The gradient is normal to the level surface (when nonzero).",
+      r"Level surfaces of $f=x^2+y^2+z^2$.", r"Spheres about the origin.",
+      r"$f=z-x^2-y^2=0$ is", r"a paraboloid (the graph of $x^2+y^2$).",
+      r"Sketching a level surface as if it were a curve in the $xy$-plane.",
+      r"Level surface $x+y+z=1$.", r"A plane.",
+      r"$xyz=1$ level surfaces are", r"hyperboloid-type sheets in the octants where the product is $1$.")
+    a(331, r"$\lim_{(x,y)\to(a,b)}f(x,y)=L$ means: for every $\varepsilon>0$ there is $\delta>0$ so that $0<\sqrt{(x-a)^2+(y-b)^2}<\delta$ implies $|f-L|<\varepsilon$. Equivalent: along every path the limit is $L$. If two paths disagree, the limit DNE.",
+      r"Does $\lim_{(x,y)\to(0,0)}\frac{xy}{x^2+y^2}$ exist?",
+      r"No: along $y=0$ it is $0$; along $y=x$ it is $1/2$.",
+      r"$f=x^2+y^2\to 0$ as $(x,y)\to 0$?", r"Yes, squeeze $0\le f\le 2(x^2+y^2)$ wait it is already $x^2+y^2$.",
+      r"Checking only along the axes and declaring the limit exists.",
+      r"$\frac{x^2y}{x^4+y^2}$ along $y=mx$ vs $y=x^2$.", r"Often a classic DNE; along $y=x^2$ it is $1/2$.",
+      r"Polar: $r\to 0$ uniformly in $\theta$ is a way to", r"prove a limit exists when the expression $\to L$ independent of $\theta$.")
+    a(332, r"$f$ is continuous at $\mathbf{a}$ if $\lim_{\mathbf{x}\to\mathbf{a}}f(\mathbf{x})=f(\mathbf{a})$. Polynomials and rationals are continuous on their domains. Compositions with continuous functions (exp, sin) remain continuous.",
+      r"Is $f(x,y)=\frac{\sin(xy)}{x}$ for $x\neq 0$, $f(0,y)=y$, continuous at $(0,0)$?",
+      r"Along $x\neq 0$, $\sin(xy)/x=y\cdot\mathrm{sinc}(xy)\to y$, so define $f(0,y)=y$; at $(0,0)$ this is $0$, and $\sin(xy)/x\to 0$. Yes if defined that way.",
+      r"$1/(x^2+y^2)$ at $(0,0)$", r"Cannot be made continuous (blows up).",
+      r"Continuity along every line implying continuity (false: need all paths / $\delta$-$\varepsilon$).",
+      r"Polynomials on $\mathbb{R}^n$ are", r"everywhere continuous.",
+      r"Product of continuous functions is", r"continuous.")
+    a(333, r"The partial $f_x$ at $\mathbf{a}$ is the ordinary derivative of $g(x)=f(x,a_2,\ldots)$ at $a_1$. Computationally, treat other variables as constant. Existence of all partials does not imply continuity, nor differentiability.",
+      r"$f=x^2 y+y^3$, $f_x$ and $f_y$.", r"$f_x=2xy$, $f_y=x^2+3y^2$.",
+      r"$f=xy/(x^2+y^2)$ off origin, $f_x(0,0)$ if $f(0,0)=0$", r"Along the $x$-axis $f=0$, so $f_x(0,0)=0$. Similarly $f_y(0,0)=0$.",
+      r"Using the one-variable quotient rule while differentiating in $x$ but letting $y$ also vary.",
+      r"$f=e^{xy}$, $f_x$.", r"$y e^{xy}$.",
+      r"$z=\sin(x/y)$, $z_y$.", r"$\cos(x/y)\cdot(-x/y^2)$.")
+    a(334, r"Higher partials: $f_{xx}$, $f_{xy}$, $f_{yx}$, $f_{yy}$. Notation $f_{xy}=\partial/\partial y(\partial f/\partial x)$. Compute by iterating the “treat other variables as constant” rule.",
+      r"$f=x^3 y^2$, all second partials.",
+      r"$f_x=3x^2 y^2$, $f_y=2x^3 y$, $f_{xx}=6xy^2$, $f_{xy}=6x^2 y=f_{yx}$, $f_{yy}=2x^3$.",
+      r"$f=e^{x} \sin y$, $f_{xy}$", r"$e^x\cos y$.",
+      r"Losing a factor when differentiating $x^n$ twice.",
+      r"$f=\ln(x+y)$, $f_{xx}$.", r"$-1/(x+y)^2$.",
+      r"How many distinct second partials if mixed partials are equal, in $3$ variables?", r"Six: $f_{xx},f_{yy},f_{zz},f_{xy},f_{xz},f_{yz}$.")
+    a(335, r"Clairaut/Schwarz: if $f_{xy}$ and $f_{yx}$ are continuous in a neighborhood of a point, then $f_{xy}=f_{yx}$ there. Continuity of the mixed partials is sufficient, not necessary. GRE default: mixed partials of smooth functions agree.",
+      r"For $f=x^2 y+e^{xy}$, is $f_{xy}=f_{yx}$?",
+      r"Yes, $C^\infty$.",
+      r"A standard counterexample (awareness)", r"A piecewise $f$ with discontinuous mixed partials at the origin.",
+      r"Assuming mixed partials equal with no regularity.",
+      r"$f=\sin(xy)$, $f_{xy}$ at $(0,0)$.", r"$f_x=y\cos(xy)$, $f_{xy}=\cos(xy)-xy\sin(xy)$, at $0$ equals $1$. Same for $f_{yx}$.",
+      r"If $f$ is a polynomial, mixed partials", r"always commute.")
+
+    # H differentiability
+    a(336, r"The directional derivative of $f$ at $\mathbf{a}$ in the direction of a unit vector $\mathbf{u}$ is $D_{\mathbf{u}}f(\mathbf{a})=\lim_{h\to 0}\frac{f(\mathbf{a}+h\mathbf{u})-f(\mathbf{a})}{h}$. If $f$ is differentiable, $D_{\mathbf{u}}f=\nabla f\cdot\mathbf{u}$. The maximum is $\|\nabla f\|$ in the direction of $\nabla f$.",
+      r"$f=x^2+y^2$ at $(1,0)$, $\mathbf{u}=(0,1)$. $D_{\mathbf{u}}f$.",
+      r"$\nabla f=(2x,2y)=(2,0)$, dot $(0,1)=0$.",
+      r"Steepest ascent of $f=xy$ at $(1,1)$", r"$\nabla f=(y,x)=(1,1)$, unit $\mathbf{u}=(1/\sqrt{2},1/\sqrt{2})$, rate $\sqrt{2}$.",
+      r"Using a non-unit $\mathbf{u}$ in $\nabla f\cdot\mathbf{u}$ and calling it the directional derivative (that is a scaled version).",
+      r"$f=x-2y$ at $(0,0)$ toward $(3,4)$. Unit?", r"$(3/5,4/5)$, $D_{\mathbf{u}}=3/5-8/5=-1$.",
+      r"If $\nabla f=0$, all directional derivatives", r"are $0$ (when differentiability holds).")
+    a(337, r"$\nabla f=(f_{x_1},\ldots,f_{x_n})$. Geometrically: direction of fastest increase; magnitude is that rate; $\nabla f$ is orthogonal to level sets. Computationally: vector of partials.",
+      r"$\nabla(x^2+yz)$ at $(1,2,3)$.", r"$(2,z,y)=(2,3,2)$.",
+      r"Level curve of $f$ through $\mathbf{a}$ is perpendicular to", r"$\nabla f(\mathbf{a})$ (if nonzero).",
+      r"Adding a constant to $f$ and changing $\nabla f$ (it does not change).",
+      r"$\nabla(e^{x}\sin y)$.", r"$(e^x\sin y, e^x\cos y)$.",
+      r"Equation of the tangent line to $x^2+y^2=5$ at $(1,2)$ via gradient of $F=x^2+y^2$.", r"$2x+4y=10$, i.e. $x+2y=5$.")
+    a(338, r"The tangent plane to $z=f(x,y)$ at $(x_0,y_0,z_0)$ is $z=z_0+f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0)$. For a level surface $F(x,y,z)=c$, the tangent plane is $\nabla F\cdot(\mathbf{r}-\mathbf{r}_0)=0$.",
+      r"Tangent plane to $z=x^2+y^2$ at $(1,1,2)$.",
+      r"$z=2+2(x-1)+2(y-1)$, i.e. $z=2x+2y-2$.",
+      r"Sphere $x^2+y^2+z^2=9$ at $(2,2,1)$", r"$2x+2y+z=9$.",
+      r"Using $\nabla f$ of the graph function as if it were a level-surface gradient in $\mathbb{R}^3$ without converting $F=z-f(x,y)$.",
+      r"Plane for $z=xy$ at $(2,3,6)$.", r"$z=3(x-2)+2(y-3)+6=3x+2y-6$.",
+      r"If $\nabla F(\mathbf{r}_0)=\mathbf{0}$ on a level surface, the tangent plane", r"may fail (singular point).")
+    a(339, r"The linearization of $f$ at $\mathbf{a}$ is $L(\mathbf{x})=f(\mathbf{a})+\nabla f(\mathbf{a})\cdot(\mathbf{x}-\mathbf{a})$. Differentiability means $f(\mathbf{x})=L(\mathbf{x})+o(\|\mathbf{x}-\mathbf{a}\|)$. $L$ is the best affine approximation.",
+      r"Linearize $f=e^{x+y}$ at $(0,0)$.",
+      r"$L=1+x+y$.",
+      r"Approximate $(1.01)^2(0.98)$ via $f=x^2 y$ at $(1,1)$.",
+      r"$f(1,1)=1$, $\nabla f=(2xy,x^2)=(2,1)$, so $L=1+2(x-1)+(y-1)$. At $(1.01,0.98)$: $1+0.02-0.02=1$.",
+      r"Using linearization far from the base point as if exact.",
+      r"$f=xy$ at $(2,3)$, $L$.", r"$6+3(x-2)+2(y-3)$.",
+      r"Linearization of a linear function is", r"itself.")
+    a(340, r"The total differential is $df=f_x\,dx+f_y\,dy$ (plus more variables). It estimates $\Delta f$. Error propagation: $|\Delta f|\approx |f_x||\Delta x|+|f_y||\Delta y|$.",
+      r"$f=x^2 y$, $x=2$, $y=3$, $dx=0.1$, $dy=-0.1$. $df$.",
+      r"$f_x=2xy=12$, $f_y=x^2=4$, $df=12(0.1)+4(-0.1)=0.8$.",
+      r"Relative error in $f=xy$", r"$|dx/x|+|dy/y|$.",
+      r"Adding differentials of products as $dx\,dy$ only (missing product rule).",
+      r"$f=1/x$ at $x=2$, $dx=0.01$, $df$.", r"$-0.01/4=-0.0025$.",
+      r"$d(uv)=u\,dv+v\,du$: this is", r"the product rule in differential form.")
+    a(341, r"The Jacobian matrix of $\mathbf{F}:\mathbb{R}^n\to\mathbb{R}^m$ is the $m\times n$ matrix of partials $DF_{ij}=\partial F_i/\partial x_j$. For $n=m$, $\det DF$ is the Jacobian determinant, the local volume scale factor (absolute value) in change of variables.",
+      r"$F(x,y)=(x^2,xy)$. Jacobian matrix.",
+      r"$\begin{pmatrix}2x&0\\ y&x\end{pmatrix}$.",
+      r"Polar $x=r\cos\theta$, $y=r\sin\theta$, $\det D$", r"$r$.",
+      r"Mixing Jacobian matrix with gradient (gradient is the Jacobian of a scalar function, as a row or column).",
+      r"$F(r,\theta)=(r\cos\theta,r\sin\theta)$, $DF$ at $(1,0)$.", r"$\begin{pmatrix}\cos 0&-r\sin 0\\ \sin 0& r\cos 0\end{pmatrix}=\begin{pmatrix}1&0\\0&1\end{pmatrix}$.",
+      r"Linear map $\mathbf{x}\mapsto A\mathbf{x}$ has Jacobian", r"$A$ (constant).")
+    a(342, r"Chain rule: if $\mathbf{x}(t)$ is a path and $f$ is differentiable, $\frac{d}{dt}f(\mathbf{x}(t))=\nabla f\cdot\mathbf{x}'(t)$. More generally $D(f\circ G)=(Df)(DG)$ as matrices. Tree diagrams help with $z=z(x,y)$, $x=x(s,t)$, $y=y(s,t)$: $z_s=z_x x_s+z_y y_s$.",
+      r"$z=x^2+y^2$, $x=\cos t$, $y=\sin t$. $dz/dt$.",
+      r"$\nabla z\cdot(-sin t,\cos t)=(2x,2y)\cdot(-\sin t,\cos t)=0$ (constant on the circle).",
+      r"$z=xy$, $x=s+t$, $y=st$, $z_s$", r"$y\cdot 1+x\cdot t=(st)+t(s+t)=2st+t^2$.",
+      r"Forgetting a branch of the tree (missing a product).",
+      r"$f=e^{x}y$, $x=t$, $y=t^2$, $f'(t)$.", r"$e^{t}t^2+e^{t}(2t)$.",
+      r"On a level curve $f(\mathbf{x}(t))=c$, $\nabla f\cdot\mathbf{x}'=$", r"$0$.")
+    a(343, r"Differentiability at $\mathbf{a}$ is stronger than existence of partials: the linear approximation error must be $o(\|\mathbf{h}\|)$. Sufficient: if partials exist near $\mathbf{a}$ and are continuous at $\mathbf{a}$, then $f$ is differentiable at $\mathbf{a}$. Partials can exist in a neighborhood without differentiability (and without continuity).",
+      r"Is $f(x,y)=\sqrt{|xy|}$ differentiable at $(0,0)$?",
+      r"Partials at $0$ are $0$, but along $y=x$ the increment is $|x|$, not $o(r)$. Not differentiable.",
+      r"Polynomials are", r"differentiable (in fact $C^\infty$).",
+      r"Existence of $f_x$ and $f_y$ at a point $\Rightarrow$ differentiable there.",
+      r"$f=x^2+y^2$ differentiable at $0$?", r"Yes.",
+      r"Continuous partials $\Rightarrow$", r"differentiable (sufficient condition).")
+
+    # H optimization
+    a(344, r"A critical point of $f:\mathbb{R}^n\to\mathbb{R}$ is where $\nabla f=\mathbf{0}$ or $\nabla f$ does not exist. Interior local extrema occur at critical points. Solve the system $f_{x_i}=0$.",
+      r"Critical points of $f=x^2+y^2-2x$.",
+      r"$f_x=2x-2=0$, $f_y=2y=0$: $(1,0)$.",
+      r"$f=x^3-3x+y^2$", r"$(1,0)$ and $(-1,0)$.",
+      r"Solving $f_x=0$ and forgetting $f_y=0$.",
+      r"$f=e^{x}+e^{y}$, critical points?", r"None ($e^x$ never $0$).",
+      r"$f=|x|+|y|$ at the origin.", r"Critical: gradient DNE (or subgradient contains $0$).")
+    a(345, r"The Hessian $H$ of $f$ is the symmetric matrix of second partials $H_{ij}=f_{x_i x_j}$ (when Clairaut applies). At a critical point, the quadratic form $\mathbf{h}^T H\mathbf{h}$ governs the local shape.",
+      r"Hessian of $f=x^2+xy+2y^2$.",
+      r"$\begin{pmatrix}2&1\\1&4\end{pmatrix}$.",
+      r"$f=xy$, Hessian", r"$\begin{pmatrix}0&1\\1&0\end{pmatrix}$.",
+      r"Writing the Hessian with first partials on the diagonal.",
+      r"$f=x^3+y^3$, $H$ at $(0,0)$.", r"Zero matrix.",
+      r"Hessian of a quadratic form $\frac12\mathbf{x}^T A\mathbf{x}$ (A symmetric) is", r"$A$.")
+    a(346, r"Second derivative test in two variables: at a critical point, $D=\det H=f_{xx}f_{yy}-f_{xy}^2$. If $D>0$ and $f_{xx}>0$, local min; $D>0$ and $f_{xx}<0$, local max; $D<0$, saddle; $D=0$, inconclusive.",
+      r"Classify $f=x^2-y^2$ at $(0,0)$.",
+      r"$D=-4<0$, saddle.",
+      r"$f=x^2+y^2$ at $0$", r"$D=4>0$, $f_{xx}=2>0$, local min.",
+      r"Using $D>0$ without checking $f_{xx}$ (could be max or min).",
+      r"$f=x^4+y^4$ at $0$.", r"$D=0$, inconclusive; actually a min.",
+      r"$f=-x^2-y^2$ at $0$.", r"Local max.")
+    a(347, r"Local extrema are neighborhood min/max. A saddle is a critical point that is neither. In higher dimensions: if $H$ is positive definite, local min; negative definite, local max; indefinite, saddle. Semidefinite: inconclusive.",
+      r"$f=(y-x^2)(y-2x^2)$ at the origin: a famous monkey saddle / degenerate example (awareness).",
+      r"The origin can fail to be a local min along some parabolas and be a min along axes — test inconclusive from Hessian $0$.",
+      r"$f=x^2+y^2$ local min is also", r"global min $0$.",
+      r"Every critical point is a local extremum (false: saddles).",
+      r"$f=xy$ at $0$.", r"Saddle.",
+      r"Positive definite Hessian at a critical point $\Rightarrow$", r"strict local min.")
+    a(348, r"On a closed bounded set $K\subset\mathbb{R}^n$, a continuous $f$ attains absolute max and min (EVT in several variables). Candidates: interior critical points, and extrema of $f$ restricted to the boundary (parametrize or Lagrange).",
+      r"Extrema of $f=x+y$ on $x^2+y^2\le 1$.",
+      r"Interior: $\nabla f=(1,1)\neq 0$, none. Boundary $x=\cos t,y=\sin t$, $g=\cos t+\sin t=\sqrt{2}\sin(t+\pi/4)$, max $\sqrt{2}$, min $-\sqrt{2}$.",
+      r"$f=x^2+y^2$ on the unit disk", r"Min $0$ at origin, max $1$ on the circle.",
+      r"Checking only interior critical points on a closed disk.",
+      r"$f=xy$ on $[0,1]^2$.", r"Min $0$ on the axes, max $1$ at $(1,1)$.",
+      r"Why compactness matters.", r"Open unit disk: $f=x$ has no max.")
+    a(349, r"Lagrange multipliers: to extremize $f$ on $g=c$ (with $\nabla g\neq 0$), solve $\nabla f=\lambda\nabla g$ together with $g=c$. Intuition: level sets of $f$ tangent to the constraint, so normals are parallel.",
+      r"Max $f=xy$ on $x^2+y^2=1$.",
+      r"$(y,x)=\lambda(2x,2y)$, so $y=2\lambda x$, $x=2\lambda y$. Then $x=\pm y$ or $x=0$ (leads to $0$). On the circle $x=\pm y$ gives $xy=\pm 1/2$. Max $1/2$.",
+      r"Min distance from origin to $x+y=1$", r"Equivalent to min $x^2+y^2$ on the line: $x=y=1/2$, dist $1/\sqrt{2}$.",
+      r"Forgetting the constraint equation, or cases $\nabla g=\mathbf{0}$.",
+      r"Max $x+2y$ on $x^2+y^2=1$.", r"$\|(1,2)\|=\sqrt{5}$ (Cauchy: max of $\mathbf{a}\cdot\mathbf{u}$).",
+      r"Two constraints use $\nabla f=\lambda\nabla g+\mu\nabla h$ and both constraint equations.", r"Yes: two multipliers for two equalities.")
+    a(350, r"On $g=c$, $\nabla g$ is normal to the constraint. Feasible displacements $\mathbf{v}$ satisfy $\nabla g\cdot\mathbf{v}=0$. At a constrained extremum, $\nabla f$ has no component tangent to the constraint, hence $\nabla f\parallel\nabla g$. If $\nabla g=\mathbf{0}$, Lagrange’s hypothesis fails (singular constraint).",
+      r"Why $\nabla g=\mathbf{0}$ at a point of $g=c$ is a problem.",
+      r"The constraint may not be a smooth hypersurface (e.g. $g=x^2+y^2$ at $0$ is not the level $c=0$ as a 1-manifold).",
+      r"The condition $\nabla f\cdot\mathbf{v}=0$ for all $\mathbf{v}\perp\nabla g$ means", r"$\nabla f$ is in $\mathrm{span}\{\nabla g\}$.",
+      r"Treating a inequality constraint $g\le c$ with interior Lagrange (KKT: complementary slackness; GRE mostly equalities).",
+      r"Constraint $g=x^2-y^2$, $\nabla g=(2x,-2y)=0$ at origin. Is origin on $g=1$?", r"No. On $g=0$ it is a crossing of lines, singular.",
+      r"Picture: $f$-contour kissing $g=c$. The common tangent means", r"common normal: $\nabla f\parallel\nabla g$.")
+
+    # H multiple integrals
+    a(351, r"A double integral $\iint_D f\,dA$ is the limit of double Riemann sums, equal to signed volume under $z=f$ over $D\subset\mathbb{R}^2$. If $f=1$, it is the area of $D$. Fubini (next) computes it as an iterated integral.",
+      r"$\iint_{[0,1]\times[0,1]} 1\,dA$.", r"$1$ (area of the unit square).",
+      r"$\iint_D (x^2+y^2)\,dA$ over the unit disk is", r"a volume under a paraboloid; polar later gives $\pi/2$.",
+      r"Thinking $\iint f$ is a path integral (that is $\int_C$).",
+      r"If $f\ge 0$, $\iint_D f$ is", r"volume (or $0$ if $f=0$).",
+      r"Linearity: $\iint (af+bg)=$ ", r"$a\iint f+b\iint g$.")
+    a(352, r"Iterated integration (Fubini/Tonelli): for continuous $f$ on a rectangle, $\iint f=\int_a^b\int_c^d f(x,y)\,dy\,dx=\int_c^d\int_a^b f\,dx\,dy$. On a type I region $a\le x\le b$, $g(x)\le y\le h(x)$, the inner integral is in $y$.",
+      r"$\int_0^1\int_0^x 1\,dy\,dx$.", r"$\int_0^1 x\,dx=1/2$ (triangle).",
+      r"Switch $\int_0^1\int_0^x f\,dy\,dx$ to $dx\,dy$", r"$0\le y\le 1$, $y\le x\le 1$: $\int_0^1\int_y^1 f\,dx\,dy$.",
+      r"Wrong inner limits: using constant limits on a triangular region.",
+      r"$\int_0^1\int_0^2 xy\,dy\,dx$.", r"$\int_0^1 x\cdot 2\,dx=1$. Wait: $\int_0^2 y\,dy=2$, times $x$, $\int_0^1 2x=1$.",
+      r"When Fubini fails (awareness).", r"Non-absolutely integrable examples on noncompact sets.")
+    a(353, r"A triple integral $\iiint_E f\,dV$ is mass if $f$ is density, volume if $f=1$. Iterate in an order matching the description of $E$: $dz\,dy\,dx$ if $E$ is $z$ between surfaces over a $xy$-domain, etc.",
+      r"Volume of the unit cube.", r"$\int_0^1\int_0^1\int_0^1 1\,dz\,dy\,dx=1$.",
+      r"Tetrahedron $x,y,z\ge 0$, $x+y+z\le 1$, volume", r"$1/6$.",
+      r"Integrating a density as if it were already mass without $dV$.",
+      r"Mass of $\rho=z$ on the unit cube.", r"$\int_0^1 z\,dz=1/2$.",
+      r"Average value of $f$ on $E$ is", r"$\frac{1}{\mathrm{vol}(E)}\iiint f$.")
+    a(354, r"Changing order: sketch the region, rewrite inequalities in the other order. The integrand may become easier (a nested integral that has no elementary inner antiderivative in one order can in the other).",
+      r"Rewrite $\int_0^1\int_x^1 e^{y^2}\,dy\,dx$ (inner is non-elementary).",
+      r"Region: $0\le x\le y\le 1$. So $\int_0^1\int_0^y e^{y^2}\,dx\,dy=\int_0^1 y e^{y^2}\,dy=\frac12(e-1)$.",
+      r"The classic $\int_0^1\int_y^1 \sin(x)/x\,dx\,dy$", r"Switch to $\int_0^1\int_0^x \sin x/x\,dy\,dx=\int_0^1\sin x\,dx=1-\cos 1$.",
+      r"Switching limits independently as if the region were a rectangle.",
+      r"Triangle under $y=x$ in first square: $dy\,dx$ vs $dx\,dy$.", r"$0\le x\le 1$, $0\le y\le x$ vs $0\le y\le 1$, $y\le x\le 1$.",
+      r"Why switch order?", r"To make the inner integral elementary or to match a density.")
+    a(355, r"Polar: $x=r\cos\theta$, $y=r\sin\theta$, $dA=r\,dr\,d\theta$. The extra $r$ is $|\det D\Phi|$. Use polar when $D$ is a disk/sector/annulus or $f$ is radial ($g(x^2+y^2)$).",
+      r"Area of the unit disk.", r"$\int_0^{2\pi}\int_0^1 r\,dr\,d\theta=\pi$.",
+      r"$\iint_{\mathrm{disk}} e^{-x^2-y^2}\,dA$", r"$\int_0^{2\pi}\int_0^1 e^{-r^2} r\,dr\,d\theta=\pi(1-e^{-1})$ for unit disk.",
+      r"Forgetting the Jacobian $r$.",
+      r"$\int_0^{\pi/2}\int_0^2 r\,dr\,d\theta$.", r"Quarter disk radius $2$: area $\pi$.",
+      r"$x^2+y^2\le 4$, $y\ge 0$: $\theta$ from", r"$0$ to $\pi$, $r$ from $0$ to $2$.")
+    a(356, r"Cylindrical: $x=r\cos\theta$, $y=r\sin\theta$, $z=z$, $dV=r\,dr\,d\theta\,dz$. Best for solids with circular symmetry about the $z$-axis (cylinders, paraboloids, cones).",
+      r"Volume of the unit cylinder $x^2+y^2\le 1$, $0\le z\le 1$.",
+      r"$\int_0^{2\pi}\int_0^1\int_0^1 r\,dz\,dr\,d\theta=\pi$.",
+      r"Ice cream: cone $z=\sqrt{x^2+y^2}$ under the hemisphere $z=\sqrt{1-x^2-y^2}$", r"Cylindrical: $z$ from $r$ to $\sqrt{1-r^2}$, $r$ from $0$ to $1/\sqrt{2}$.",
+      r"Using $dV=dr\,d\theta\,dz$ without $r$.",
+      r"Mass of $\rho=r$ on the unit cylinder $0\le z\le 1$.", r"$\int_0^{2\pi}\int_0^1 r\cdot r\,dr=\int_0^{2\pi} 1/3=2\pi/3$.",
+      r"Cylindrical $r$ is", r"distance to the $z$-axis.")
+    a(357, r"Spherical: $x=\rho\sin\phi\cos\theta$, $y=\rho\sin\phi\sin\theta$, $z=\rho\cos\phi$, $dV=\rho^2\sin\phi\,d\rho\,d\phi\,d\theta$. $\rho\ge 0$, $\phi\in[0,\pi]$ from the positive $z$-axis, $\theta\in[0,2\pi]$. Balls, cones from the origin, $x^2+y^2+z^2$ integrands.",
+      r"Volume of the unit ball.",
+      r"$\int_0^{2\pi}\int_0^\pi\int_0^1 \rho^2\sin\phi\,d\rho\,d\phi\,d\theta=\frac43\pi$.",
+      r"The factor $\sin\phi$ is $0$ at", r"the poles $\phi=0,\pi$ (coordinate singularity, like $r=0$ in polar).",
+      r"Using $\phi$ as the polar angle in the $xy$-plane (that is $\theta$).",
+      r"Average of $\rho$ on the unit ball.", r"$\iiint\rho\,dV/\frac{4}{3}\pi=\frac{3}{4}$.",
+      r"$dV$ in spherical is", r"$\rho^2\sin\phi\,d\rho\,d\phi\,d\theta$.")
+    a(358, r"General change of variables: if $\Phi:U\to D$ is a $C^1$ bijection (orientation aside), $\iint_D f=\iint_U (f\circ\Phi)\,|\det D\Phi|\,du\,dv$. The absolute value of the Jacobian determinant converts area elements. Analogous in $3$D.",
+      r"Linear map $\Phi(u,v)=(2u,3v)$ from the unit square. Area of the image?",
+      r"$|\det|=6$, area $6$.",
+      r"Change $u=x+y$, $v=x-y$ for $\iint_D (x+y)\,dA$", r"$x=(u+v)/2$, $y=(u-v)/2$, $|\det D(x,y)/D(u,v)|=1/2$.",
+      r"Dropping $|\,|$ and getting a negative area, or using $\det D\Phi^{-1}$ without inverting.",
+      r"Polar is the special case $\Phi(r,\theta)=(r\cos\theta,r\sin\theta)$, $|\det|=$", r"$r$.",
+      r"If $\Phi$ folds the domain, the formula as a simple integral", r"fails (need to split into 1-1 pieces).")
+    a(359, r"$|\det D\Phi|$ is the factor by which $\Phi$ scales infinitesimal volume. For a linear map $A$, volume of $A(E)$ is $|\det A|\,\mathrm{vol}(E)$. Eigenvalues’ product (absolute) is the same story. Sign of $\det$ is orientation.",
+      r"$A=\mathrm{diag}(2,3,4)$, $|\det A|$.", r"$24$, volume scale $24$.",
+      r"Shear $\begin{pmatrix}1&1\\0&1\end{pmatrix}$", r"$\det=1$, area-preserving.",
+      r"Using $\mathrm{tr}(A)$ as a volume factor.",
+      r"Polar Jacobian $r$ at $r=2$.", r"Local area scale $2$.",
+      r"If $\det D\Phi=0$ at a point, $\Phi$ is", r"locally not invertible (inverse function theorem).")
+    a(360, r"Applications: area $\iint 1\,dA$, volume $\iiint 1\,dV$, mass $\iiint\rho\,dV$, average $\frac{1}{\mathrm{meas}}\iiint f$, centroid $\bar x=\iiint x\rho\,dV/m$. Choose coordinates that match the region and the integrand.",
+      r"Mass of the unit disk with $\rho=1+x^2+y^2$.",
+      r"Polar: $\int_0^{2\pi}\int_0^1(1+r^2)r\,dr=\pi(1+1/2)=3\pi/2$.",
+      r"Centroid of a uniform semicircular disk of radius $a$", r"$\bar y=4a/(3\pi)$ on the axis of symmetry.",
+      r"Computing mass with $dA$ but forgetting $\rho$, or using the wrong Jacobian.",
+      r"Volume of the tetrahedron $x,y,z\ge 0$, $x+y+z\le 1$.", r"$1/6$.",
+      r"If $\rho$ is constant, the center of mass is the", r"centroid (geometric center).")
+
+    return F

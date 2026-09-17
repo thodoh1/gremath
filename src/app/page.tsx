@@ -1,103 +1,105 @@
-import Image from "next/image";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { getCatalog, getSections } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
-export default function Home() {
+export default function HomePage() {
+  const catalog = getCatalog();
+  const sections = getSections();
+  const critical = catalog.filter((s) => s.priority === "Critical").length;
+  const high = catalog.filter((s) => s.priority === "High").length;
+  const medium = catalog.filter((s) => s.priority === "Medium").length;
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
+    <article className="mx-auto max-w-3xl">
+      <p className="text-[11px] uppercase tracking-[0.22em] text-burgundy">
+        GRE Mathematics Subject Test
+      </p>
+      <h1 className="mt-3 font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+        A book that teaches every skill, from nothing to a perfect score.
+      </h1>
+      <p className="mt-6 text-lg leading-relaxed text-ink/80">
+        This is not a formula sheet. It is a full course through{" "}
+        <strong>{catalog.length} atomic skills</strong> — the same checklist a
+        perfect-score attempt has to own. Each lesson starts from first
+        principles, builds the precise idea, works examples by hand, then
+        trains the exact GRE motion: speed, hypotheses, traps, and mixed
+        problems.
+      </p>
+      <p className="mt-4 text-lg leading-relaxed text-ink/80">
+        If you knew none of this yesterday, you can still use this book. Read
+        in order. Do the drills before you turn the page. Do not skip the
+        foundations because calculus is fifty percent of the exam: calculus
+        without algebraic fluency is how people lose easy points.
+      </p>
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Link
+          href="/front/preface"
+          className={cn(buttonVariants({ size: "lg" }))}
+        >
+          Start with the preface
+        </Link>
+        <Link
+          href="/lesson/M-001"
+          className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+        >
+          Open Lesson M-001
+        </Link>
+      </div>
+      <dl className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {[
+          [String(catalog.length), "Atomic lessons"],
+          [String(sections.length), "Parts A–Y"],
+          [String(critical), "Critical skills"],
+          ["170 min", "Exam clock"],
+        ].map(([k, v]) => (
+          <div key={v} className="rounded-lg border border-rule bg-paper-dark/50 p-4">
+            <dt className="text-[11px] uppercase tracking-[0.16em] text-ink/45">
+              {v}
+            </dt>
+            <dd className="mt-1 font-serif text-2xl">{k}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="mt-6 text-sm text-ink/60">
+        {critical} critical · {high} high · {medium} medium. Priorities are
+        study-planning judgments, not official ETS weights. Calculus is still
+        about half the test.
+      </p>
+      <h2 className="mt-14 font-serif text-2xl">How the book is built</h2>
+      <ol className="mt-4 list-decimal space-y-3 pl-5 text-ink/85">
+        <li>
+          <strong>Front matter</strong> tells you how the exam works and how to
+          study so that “I read it” becomes “I can do it timed.”
+        </li>
+        <li>
+          <strong>Parts A–Y</strong> are the fields themselves: algebra,
+          calculus, linear algebra, algebra, analysis, discrete math,
+          probability, geometry, complex analysis, numerical methods, and
+          mixed GRE craft.
+        </li>
+        <li>
+          <strong>One lesson per skill.</strong> You never get a table in place
+          of an explanation. You get the idea, the precise statement, a worked
+          example, a GRE-style problem, traps, and drills with solutions.
+        </li>
+      </ol>
+      <h2 className="mt-14 font-serif text-2xl">The parts</h2>
+      <ul className="mt-4 divide-y divide-rule border-y border-rule">
+        {sections.map((sec) => (
+          <li key={sec.letter}>
+            <Link
+              href={`/part/${sec.letter}`}
+              className="flex items-baseline justify-between gap-4 py-3 hover:text-burgundy"
+            >
+              <span className="font-medium">{sec.section}</span>
+              <span className="text-sm text-ink/45">
+                {sec.skills.length} lessons
+              </span>
+            </Link>
           </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        ))}
+      </ul>
+    </article>
   );
 }
